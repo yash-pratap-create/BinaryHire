@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import {
   Users, Briefcase, Clock, BarChart3,
   Plus, ArrowUpRight, ArrowDownRight, MapPin, ArrowRight,
+  Sparkles, Zap, Award, CheckCircle2
 } from 'lucide-react';
+import heroImg from '../assets/dashboard_hero.png';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, CartesianGrid } from 'recharts';
 import { candidateService } from '../services/candidateService';
 import { roleService } from '../services/roleService';
@@ -183,26 +185,121 @@ export const DashboardPage: React.FC = () => {
 
   return (
     <div className="w-full relative space-y-6">
-      {/* Top welcome bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1
-            className="text-2xl font-semibold"
-            style={{ fontFamily: "'Space Grotesk', sans-serif", color: isDark ? '#f2f1f5' : '#18141f' }}
-          >
-            Good evening, {user?.name.split(' ')[0] || 'Recruiter'}
-          </h1>
-          <p className="text-sm mt-0.5" style={{ color: isDark ? '#8b899a' : '#6b6875' }}>
-            Here's how hiring is trending this week across teams.
-          </p>
+      {/* Top Welcome Hero Banner with Image & Written Content */}
+      <div
+        className="rounded-3xl p-6 md:p-8 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-300"
+        style={{
+          background: isDark
+            ? 'linear-gradient(135deg, #141020 0%, #0d0a15 60%, #150e24 100%)'
+            : 'linear-gradient(135deg, #ffffff 0%, #f6f0ff 60%, #eee4fc 100%)',
+          border: isDark ? '1px solid #2a223a' : '1px solid #e2d4f8',
+          boxShadow: isDark ? '0 8px 32px rgba(201,77,255,0.15)' : '0 6px 24px rgba(147,51,234,0.08)',
+        }}
+      >
+        {/* Background Ambient Glow Effects */}
+        <div
+          className="absolute -top-24 -left-24 w-72 h-72 rounded-full blur-3xl opacity-30 pointer-events-none"
+          style={{ background: '#c94dff' }}
+        />
+        <div
+          className="absolute -bottom-24 -right-24 w-72 h-72 rounded-full blur-3xl opacity-20 pointer-events-none"
+          style={{ background: '#5ce1e6' }}
+        />
+
+        {/* Written Content Column */}
+        <div className="relative z-10 flex-1 space-y-4">
+          <div className="flex flex-wrap items-center gap-2">
+            <span
+              className="px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5"
+              style={{
+                background: 'rgba(201,77,255,0.15)',
+                color: isDark ? '#e0b3ff' : '#7c3aed',
+                border: '1px solid rgba(201,77,255,0.3)',
+              }}
+            >
+              <Sparkles size={13} /> SRMIST Talent Recruitment Hub
+            </span>
+            <span
+              className="px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5"
+              style={{
+                background: 'rgba(92,225,230,0.15)',
+                color: isDark ? '#5ce1e6' : '#0284c7',
+                border: '1px solid rgba(92,225,230,0.3)',
+              }}
+            >
+              <Zap size={13} /> Real-Time Talent Pipeline
+            </span>
+          </div>
+
+          <div>
+            <h1
+              className="text-2xl sm:text-3xl font-bold tracking-tight leading-tight"
+              style={{ fontFamily: "'Space Grotesk', sans-serif", color: isDark ? '#f2f1f5' : '#18141f' }}
+            >
+              Welcome back, {user?.name || 'Recruiter'} 👋
+            </h1>
+            <p className="text-xs sm:text-sm mt-2 max-w-xl leading-relaxed" style={{ color: isDark ? '#a8a5b8' : '#595566' }}>
+              Streamline candidate sourcing, evaluate AI match scores, and track active campus placement pipelines across engineering & design teams.
+            </p>
+          </div>
+
+          {/* Quick Metrics Badges */}
+          <div className="flex flex-wrap items-center gap-4 pt-1">
+            <div className="flex items-center gap-1.5 text-xs font-medium" style={{ color: isDark ? '#5fe0a8' : '#0f9d6c' }}>
+              <CheckCircle2 size={14} /> 96.4% Candidate Match Accuracy
+            </div>
+            <div className="flex items-center gap-1.5 text-xs font-medium" style={{ color: isDark ? '#e0b3ff' : '#7c3aed' }}>
+              <Award size={14} /> Verified SRMIST Campus Profiles
+            </div>
+          </div>
+
+          {/* Action CTAs */}
+          <div className="flex flex-wrap items-center gap-3 pt-2">
+            <Link
+              to="/candidates"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold shadow-md transition-all hover:scale-105 cursor-pointer"
+              style={{ background: 'linear-gradient(135deg,#c94dff,#7c3aed)', color: '#0c0b10' }}
+            >
+              <Users size={15} /> Explore Candidates
+            </Link>
+            <Link
+              to="/roles"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold border transition-all hover:scale-105 cursor-pointer"
+              style={{
+                background: isDark ? '#1a1820' : '#ffffff',
+                borderColor: isDark ? '#2a2733' : '#e9d5ff',
+                color: isDark ? '#f2f1f5' : '#18141f',
+              }}
+            >
+              <Plus size={15} /> Post Job Role
+            </Link>
+          </div>
         </div>
-        <Link
-          to="/roles"
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold shadow-md transition-all hover:-translate-y-0.5 cursor-pointer shrink-0"
-          style={{ background: 'linear-gradient(135deg,#c94dff,#7c3aed)', color: '#0c0b10' }}
+
+        {/* Real Unsplash Tech Team Image Banner */}
+        <div
+          className="relative z-10 shrink-0 w-full md:w-80 lg:w-96 rounded-2xl overflow-hidden border p-1 shadow-2xl group transition-all duration-300 hover:scale-[1.02]"
+          style={{
+            background: isDark ? '#0c0b10' : '#ffffff',
+            borderColor: isDark ? '#2a2733' : '#e7e4ef',
+          }}
         >
-          <Plus size={15} /> Create Job Role
-        </Link>
+          <img
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80"
+            alt="SRMIST Recruitment Team & Tech Talent"
+            className="w-full h-48 sm:h-52 object-cover rounded-xl filter drop-shadow-md group-hover:scale-105 transition-transform duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex items-end p-3.5 pointer-events-none">
+            <div className="flex items-center justify-between w-full text-white text-xs">
+              <span className="font-semibold tracking-wide flex items-center gap-1.5">
+                <Sparkles size={13} className="text-[#c94dff]" /> SRMIST Talent Portal
+              </span>
+              <span className="px-2 py-0.5 rounded bg-[#c94dff]/30 text-[#e0b3ff] text-[10px] font-mono border border-[#c94dff]/40">
+                ACTIVE PIPELINE
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Stat cards */}
