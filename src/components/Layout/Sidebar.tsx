@@ -169,9 +169,19 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               12 active across 4 teams
             </p>
             <button
-              onClick={() => { navigate('/roles'); onClose(); }}
-              className="w-full flex items-center justify-center gap-1.5 text-xs font-medium py-2 rounded-lg transition-all hover:opacity-90 cursor-pointer"
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onClose();
+                if (user?.role === 'Admin') {
+                  navigate('/roles?new=true');
+                } else {
+                  navigate('/roles');
+                }
+              }}
+              className="w-full flex items-center justify-center gap-1.5 text-xs font-semibold py-2 rounded-lg transition-all hover:opacity-90 cursor-pointer relative z-10"
               style={{ background: 'linear-gradient(135deg,#c94dff,#7c3aed)', color: '#0c0b10' }}
+              id="sidebar-roles-action-btn"
             >
               {user?.role === 'Admin' ? (
                 <><Plus size={13} /> New role</>

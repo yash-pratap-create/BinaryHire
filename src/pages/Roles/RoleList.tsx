@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Search, Plus, Filter, Trash2, Edit2, Users, ChevronDown, MapPin, Clock } from 'lucide-react';
 import { clsx } from 'clsx';
 import { roleService } from '../../services/roleService';
@@ -20,6 +21,7 @@ export const RolesPage: React.FC = () => {
   const { isDark } = useTheme();
   const { user } = useAuth();
   const isAdmin = user?.role === 'Admin';
+  const [searchParams, setSearchParams] = useSearchParams();
   const [roles, setRoles] = useState<Role[]>([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState('All');
@@ -27,6 +29,14 @@ export const RolesPage: React.FC = () => {
   const [editRole, setEditRole] = useState<Role | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
+
+  useEffect(() => {
+    if (searchParams.get('new') === 'true' && isAdmin) {
+      setEditRole(null);
+      setShowForm(true);
+      setSearchParams({});
+    }
+  }, [searchParams, isAdmin, setSearchParams]);
 
   const fetchRoles = useCallback(async () => {
     setLoading(true);
