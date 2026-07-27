@@ -60,22 +60,50 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
 
       {/* Right: Search, Notifications, Theme, User */}
       <div className="flex items-center gap-3">
-        <div
-          className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl w-48 md:w-64"
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            const input = e.currentTarget.querySelector('input') as HTMLInputElement;
+            if (input && input.value.trim()) {
+              window.location.href = `/candidates?q=${encodeURIComponent(input.value.trim())}`;
+            }
+            input?.blur();
+          }}
+          className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl w-52 md:w-72 relative"
           style={{
             background: isDark ? '#111116' : '#ffffff',
             border: isDark ? '1px solid #1f1d27' : '1px solid #e7e4ef',
           }}
         >
-          <Search size={14} style={{ color: isDark ? '#8b899a' : '#6b6875' }} />
+          <button type="submit" className="p-0 border-0 bg-transparent cursor-pointer flex items-center shrink-0 hover:opacity-80" title="Click to search">
+            <Search size={14} style={{ color: isDark ? '#c94dff' : '#9333ea' }} />
+          </button>
           <input
             placeholder="Search candidates, roles..."
-            className="bg-transparent outline-none text-xs w-full"
+            className="bg-transparent outline-none text-xs w-full pr-16"
             style={{
               color: isDark ? '#f2f1f5' : '#18141f',
             }}
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') {
+                (e.target as HTMLInputElement).value = '';
+                (e.target as HTMLInputElement).blur();
+              }
+            }}
           />
-        </div>
+          <button
+            type="submit"
+            className="absolute right-1.5 text-[10px] font-semibold px-2 py-0.5 rounded transition-all cursor-pointer hover:scale-105"
+            style={{
+              background: isDark ? '#1a1820' : '#f3ecfd',
+              color: isDark ? '#c94dff' : '#7c3aed',
+              border: isDark ? '1px solid #2a2733' : '1px solid #e9d5ff',
+            }}
+            title="Click or press Enter to search"
+          >
+            Search ↵
+          </button>
+        </form>
 
         {/* Notifications */}
         <button

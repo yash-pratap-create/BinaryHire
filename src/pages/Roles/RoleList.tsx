@@ -131,21 +131,63 @@ export const RolesPage: React.FC = () => {
         }}
       >
         <div className="flex gap-3">
-          <div className="relative flex-1">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              (e.currentTarget.querySelector('input') as HTMLInputElement)?.blur();
+            }}
+            className="relative flex-1"
+          >
             <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2" style={{ color: isDark ? '#8b899a' : '#6b6875' }} />
             <input
               id="role-search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  (e.target as HTMLInputElement).blur();
+                } else if (e.key === 'Escape') {
+                  setQuery('');
+                  (e.target as HTMLInputElement).blur();
+                }
+              }}
               placeholder="Search roles by title, department, location..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm outline-none transition-all"
+              className="w-full pl-10 pr-32 py-2.5 rounded-xl text-sm outline-none transition-all"
               style={{
                 background: isDark ? '#08070b' : '#ffffff',
                 border: isDark ? '1px solid #24212c' : '1px solid #e7e4ef',
                 color: isDark ? '#f2f1f5' : '#18141f',
               }}
             />
-          </div>
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
+              {query && (
+                <button
+                  type="button"
+                  onClick={() => setQuery('')}
+                  className="px-2 py-1 rounded-lg text-xs font-medium cursor-pointer transition-colors"
+                  style={{
+                    background: isDark ? 'rgba(239,68,68,0.15)' : '#fee2e2',
+                    color: isDark ? '#f87171' : '#dc2626',
+                  }}
+                  title="Clear search query (Esc)"
+                >
+                  Clear (Esc)
+                </button>
+              )}
+              <button
+                type="submit"
+                className="px-2.5 py-1 rounded-lg text-xs font-medium cursor-pointer transition-all hover:scale-105"
+                style={{
+                  background: isDark ? '#1a1820' : '#f3ecfd',
+                  color: isDark ? '#c94dff' : '#7c3aed',
+                  border: isDark ? '1px solid #2a2733' : '1px solid #e9d5ff',
+                }}
+                title="Press Enter to search"
+              >
+                ↵ Enter
+              </button>
+            </div>
+          </form>
           <Button
             variant="outline"
             size="md"
