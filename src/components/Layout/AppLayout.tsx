@@ -60,34 +60,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         <div className="relative z-10 max-w-7xl mx-auto">
           {children}
         </div>
-
-        {/* Esc to Dashboard floating badge button */}
-        {isNotDashboard && (
-          <button
-            onClick={() => navigate('/dashboard')}
-            className="fixed bottom-5 right-5 z-20 flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold shadow-lg transition-all duration-200 cursor-pointer hover:scale-105"
-            style={{
-              background: isDark ? '#111116' : '#ffffff',
-              border: isDark ? '1px solid #24212c' : '1px solid #e7e4ef',
-              color: isDark ? '#c94dff' : '#9333ea',
-              boxShadow: isDark ? '0 4px 20px rgba(0,0,0,0.5)' : '0 4px 16px rgba(0,0,0,0.08)',
-            }}
-            title="Click or press Esc key on keyboard to return to Dashboard"
-          >
-            <ArrowLeft size={14} />
-            <span>Back to Dashboard</span>
-            <kbd
-              className="px-1.5 py-0.5 rounded text-[10px] uppercase font-mono border"
-              style={{
-                background: isDark ? '#1a1820' : '#f3ecfd',
-                borderColor: isDark ? '#2a2733' : '#e9d5ff',
-                color: isDark ? '#e0b3ff' : '#7c3aed',
-              }}
-            >
-              Esc
-            </kbd>
-          </button>
-        )}
       </main>
     </div>
   );
