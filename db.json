@@ -25,7 +25,7 @@
       "phone": "+1-555-0101",
       "role": "Frontend Engineer",
       "department": "Engineering",
-      "status": "Offer",
+      "status": "Screening",
       "experience": "4 years",
       "location": "San Francisco, CA",
       "skills": [
@@ -78,7 +78,7 @@
       "phone": "+1-555-0102",
       "role": "Backend Engineer",
       "department": "Engineering",
-      "status": "Screening",
+      "status": "Hired",
       "experience": "6 years",
       "location": "New York, NY",
       "skills": [
@@ -99,7 +99,7 @@
       "phone": "+1-555-0103",
       "role": "Product Manager",
       "department": "Product",
-      "status": "Offer",
+      "status": "Hired",
       "experience": "8 years",
       "location": "Austin, TX",
       "skills": [

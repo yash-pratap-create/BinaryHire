@@ -148,36 +148,23 @@ export const InterviewListPage: React.FC = () => {
                 }
               }}
               placeholder="Search candidate, role, or interviewer..."
-              className="w-full pl-10 pr-24 py-2.5 rounded-xl text-sm outline-none transition-all"
+              className="w-full pl-10 pr-8 py-2.5 rounded-xl text-sm outline-none transition-all"
               style={{
                 background: isDark ? '#08070b' : '#ffffff',
                 border: isDark ? '1px solid #24212c' : '1px solid #e7e4ef',
                 color: isDark ? '#f2f1f5' : '#18141f',
               }}
             />
-            <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
-              {query && (
-                <button
-                  type="button"
-                  onClick={() => setQuery('')}
-                  className="px-2 py-0.5 rounded text-xs font-medium text-red-400 hover:bg-red-950/30 transition-colors"
-                  title="Clear search (Esc)"
-                >
-                  Clear
-                </button>
-              )}
+            {query && (
               <button
-                type="submit"
-                className="px-2 py-0.5 rounded text-xs font-semibold"
-                style={{
-                  background: isDark ? '#1a1820' : '#f3ecfd',
-                  color: isDark ? '#c94dff' : '#7c3aed',
-                  border: isDark ? '1px solid #2a2733' : '1px solid #e9d5ff',
-                }}
+                type="button"
+                onClick={() => setQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#8b899a] hover:text-red-400 cursor-pointer"
+                title="Clear search"
               >
-                ↵ Enter
+                ✕
               </button>
-            </div>
+            )}
           </form>
 
           {/* Status Filter Buttons */}
