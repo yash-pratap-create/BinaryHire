@@ -47,3 +47,62 @@ export function truncate(str: string, maxLen: number): string {
 export function formatNumber(n: number): string {
   return n.toLocaleString('en-US');
 }
+
+// ─── Resume Download Helper ───────────────────────────────────────────────────
+export function downloadCandidateResume(candidate: {
+  name: string;
+  email: string;
+  phone?: string;
+  role: string;
+  department: string;
+  status: string;
+  experience: string;
+  location?: string;
+  skills?: string[];
+  appliedDate?: string;
+  salary?: string;
+  notes?: string;
+}): void {
+  const content = `====================================================
+              BINARYHIRE RESUME DOSSIER
+====================================================
+
+CANDIDATE INFORMATION
+---------------------
+Name:        ${candidate.name}
+Email:       ${candidate.email}
+Phone:       ${candidate.phone || 'N/A'}
+Location:    ${candidate.location || 'N/A'}
+
+APPLICATION DETAILS
+-------------------
+Applied Role: ${candidate.role}
+Department:   ${candidate.department}
+Status:       ${candidate.status}
+Experience:   ${candidate.experience}
+Salary Exp:   ${candidate.salary || 'N/A'}
+Applied Date: ${candidate.appliedDate || 'N/A'}
+
+SKILLS
+------
+${candidate.skills && candidate.skills.length > 0 ? candidate.skills.join(', ') : 'None listed'}
+
+NOTES & EVALUATION
+------------------
+${candidate.notes || 'No evaluation notes attached.'}
+
+====================================================
+Document Generated via BinaryHire Recruitment Platform
+====================================================`;
+
+  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  const fileName = `${candidate.name.replace(/[^a-zA-Z0-9]/g, '_')}_Resume.txt`;
+  link.setAttribute('download', fileName);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+}

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Mail, Phone, MapPin, Briefcase, Calendar, DollarSign, FileText, Edit2 } from 'lucide-react';
+import { Mail, Phone, MapPin, Briefcase, Calendar, DollarSign, FileText, Edit2, Download } from 'lucide-react';
 import type { Candidate } from '../../types';
-import { formatDate, getInitials } from '../../utils/helpers';
+import { formatDate, getInitials, downloadCandidateResume } from '../../utils/helpers';
 import { Button } from '../../components/UI/Button';
 import { FileUpload } from '../../components/UI/FileUpload';
 import { candidateService } from '../../services/candidateService';
@@ -120,7 +120,15 @@ export const CandidateDetail: React.FC<CandidateDetailProps> = ({ candidate, onE
 
       {/* Resume upload */}
       <div>
-        <p className="text-xs font-medium mb-2" style={{ color: '#a8a6b3' }}>Resume / CV</p>
+        <div className="flex items-center justify-between mb-2">
+          <p className="text-xs font-medium" style={{ color: '#a8a6b3' }}>Resume / CV</p>
+          <button
+            onClick={() => downloadCandidateResume(candidate)}
+            className="flex items-center gap-1 text-xs font-medium text-[#5fe0a8] hover:underline cursor-pointer"
+          >
+            <Download size={13} /> Download Resume
+          </button>
+        </div>
         <FileUpload
           onFileSelect={handleResumeUpload}
           currentFile={candidate.resumeFile}
@@ -128,9 +136,12 @@ export const CandidateDetail: React.FC<CandidateDetailProps> = ({ candidate, onE
       </div>
 
       {/* Actions */}
-      <div className="pt-2">
-        <Button variant="primary" leftIcon={<Edit2 size={15} />} onClick={onEdit} className="w-full" id="edit-from-detail">
-          Edit Candidate Profile
+      <div className="flex gap-3 pt-2">
+        <Button variant="outline" leftIcon={<Download size={15} />} onClick={() => downloadCandidateResume(candidate)} className="flex-1">
+          Download Resume
+        </Button>
+        <Button variant="primary" leftIcon={<Edit2 size={15} />} onClick={onEdit} className="flex-1" id="edit-from-detail">
+          Edit Profile
         </Button>
       </div>
     </div>

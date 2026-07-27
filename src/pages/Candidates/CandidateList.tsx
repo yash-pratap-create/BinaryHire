@@ -6,7 +6,7 @@ import {
 import { clsx } from 'clsx';
 import { candidateService } from '../../services/candidateService';
 import type { Candidate, CandidateStatus } from '../../types';
-import { getInitials, formatDate } from '../../utils/helpers';
+import { getInitials, formatDate, downloadCandidateResume } from '../../utils/helpers';
 import { useSearch } from '../../hooks/useSearch';
 import { usePagination } from '../../hooks/usePagination';
 import { useTheme } from '../../context/ThemeContext';
@@ -289,7 +289,7 @@ export const CandidatesPage: React.FC = () => {
                           {formatDate(c.appliedDate)}
                         </td>
                         <td className="px-5 py-3.5">
-                          <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <div className="flex items-center gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                             <button
                               onClick={() => setViewCandidate(c)}
                               className="p-1.5 rounded-lg text-[#8b899a] hover:text-[#5ce1e6] hover:bg-[#1a1820] transition-colors cursor-pointer"
@@ -304,14 +304,13 @@ export const CandidatesPage: React.FC = () => {
                             >
                               <Edit2 size={15} />
                             </button>
-                            {c.resumeFile && (
-                              <button
-                                className="p-1.5 rounded-lg text-[#8b899a] hover:text-[#5fe0a8] hover:bg-[#1a1820] transition-colors cursor-pointer"
-                                title="Download resume"
-                              >
-                                <Download size={15} />
-                              </button>
-                            )}
+                            <button
+                              onClick={() => downloadCandidateResume(c)}
+                              className="p-1.5 rounded-lg text-[#8b899a] hover:text-[#5fe0a8] hover:bg-[#1a1820] transition-colors cursor-pointer"
+                              title="Download resume"
+                            >
+                              <Download size={15} />
+                            </button>
                             <button
                               onClick={() => setDeleteId(c.id)}
                               className="p-1.5 rounded-lg text-[#8b899a] hover:text-red-400 hover:bg-[#1a1820] transition-colors cursor-pointer"
