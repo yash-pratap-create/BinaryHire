@@ -16,6 +16,40 @@ export interface AuthState {
 
 // ─── Candidate ─────────────────────────────────────────────────────────────────
 export type CandidateStatus = 'Applied' | 'Screening' | 'Interview' | 'Offer' | 'Hired' | 'Rejected';
+export type CandidateSource = 'LinkedIn' | 'Campus Referral' | 'Career Portal' | 'Direct Application';
+
+export interface Scorecard {
+  id: string;
+  candidateId: string;
+  interviewer: string;
+  round: string;
+  technicalRating: number;
+  communicationRating: number;
+  problemSolvingRating: number;
+  cultureFitRating: number;
+  recommendation: 'Strong Hire' | 'Hire' | 'No Hire' | 'Strong No Hire';
+  comments: string;
+  date: string;
+}
+
+export interface CandidateComment {
+  id: string;
+  candidateId: string;
+  author: string;
+  text: string;
+  date: string;
+}
+
+export type OfferApprovalStage = 'Draft' | 'Manager Approved' | 'HR Approved' | 'Offer Extended';
+
+export interface OfferApproval {
+  stage: OfferApprovalStage;
+  managerApprovedBy?: string;
+  hrApprovedBy?: string;
+  salaryOffered?: string;
+  startDate?: string;
+  notes?: string;
+}
 
 export interface Candidate {
   id: string;
@@ -32,6 +66,10 @@ export interface Candidate {
   appliedDate: string;
   salary: string;
   notes: string;
+  source?: CandidateSource;
+  scorecards?: Scorecard[];
+  comments?: CandidateComment[];
+  offerApproval?: OfferApproval;
 }
 
 export interface CandidateFormData {

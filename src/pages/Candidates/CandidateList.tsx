@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { clsx } from 'clsx';
 import { candidateService } from '../../services/candidateService';
+import { aiService } from '../../services/aiService';
 import type { Candidate, CandidateStatus } from '../../types';
 import { getInitials, formatDate, downloadCandidateResume } from '../../utils/helpers';
 import { useSearch } from '../../hooks/useSearch';
@@ -266,6 +267,61 @@ export const CandidatesPage: React.FC = () => {
         )}
       </div>
 
+      {/* Floating Bulk Actions Bar */}
+      {selectedIds.length > 0 && (
+        <div
+          className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-4 animate-slide-up"
+          style={{
+            background: isDark ? '#18161e' : '#ffffff',
+            border: isDark ? '1px solid #372b49' : '1px solid #e9d5ff',
+            boxShadow: isDark ? '0 8px 32px rgba(201,77,255,0.3)' : '0 8px 24px rgba(0,0,0,0.12)',
+          }}
+        >
+          <span className="text-xs font-bold text-[#c94dff]">
+            {selectedIds.length} candidate(s) selected
+          </span>
+
+          <div className="h-4 w-px bg-[#24212c]" />
+
+          {/* Bulk Stage Move */}
+          <select
+            className="text-xs font-semibold px-3 py-1.5 rounded-xl outline-none bg-[#0c0b10] border border-[#24212c] text-[#f2f1f5] cursor-pointer"
+            onChange={async (e) => {
+              if (!e.target.value) return;
+              const newStage = e.target.value as CandidateStatus;
+              await Promise.all(selectedIds.map((id) => candidateService.update(id, { status: newStage })));
+              setSelectedIds([]);
+              fetchCandidates();
+            }}
+          >
+            <option value="">Bulk Move Stage...</option>
+            {STATUS_OPTIONS.map((st) => (
+              <option key={st} value={st}>Move to {st}</option>
+            ))}
+          </select>
+
+          {/* Bulk Reject */}
+          <button
+            onClick={async () => {
+              await Promise.all(selectedIds.map((id) => candidateService.update(id, { status: 'Rejected' })));
+              setSelectedIds([]);
+              fetchCandidates();
+            }}
+            className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-red-500/15 text-red-400 border border-red-500/30 hover:bg-red-500/25 transition-colors cursor-pointer"
+          >
+            Bulk Reject
+          </button>
+
+          {/* Clear Selection */}
+          <button
+            onClick={() => setSelectedIds([])}
+            className="text-xs text-[#8b899a] hover:text-[#f2f1f5] underline cursor-pointer"
+          >
+            Deselect All
+          </button>
+        </div>
+      )}
+
       {/* Table */}
       <div
         className="rounded-2xl overflow-hidden"
@@ -288,8 +344,22 @@ export const CandidatesPage: React.FC = () => {
               <table className="w-full text-sm">
                 <thead>
                   <tr style={{ color: isDark ? '#8b899a' : '#6b6875' }}>
-                    {['Candidate', 'Role', 'Department', 'Stage', 'Match', 'Applied', 'Actions'].map((h) => (
-                      <th key={h} className="px-5 py-3.5 text-left text-xs font-normal whitespace-nowrap">
+                    <th className="px-4 py-3.5 text-left w-10">
+                      <input
+                        type="checkbox"
+                        checked={selectedIds.length > 0 && selectedIds.length === statusFiltered.length}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setSelectedIds(statusFiltered.map((c) => c.id));
+                          } else {
+                            setSelectedIds([]);
+                          }
+                        }}
+                        className="rounded border-[#24212c] cursor-pointer"
+                      />
+                    </th>
+                    {['Candidate', 'Role', 'Department', 'Stage', 'AI Match', 'Applied', 'Actions'].map((h) => (
+                      <th key={h} className="px-4 py-3.5 text-left text-xs font-normal whitespace-nowrap">
                         {h}
                       </th>
                     ))}
@@ -298,13 +368,29 @@ export const CandidatesPage: React.FC = () => {
                 <tbody>
                   {pagination.paginatedItems.map((c) => {
                     const stageStyle = stageColor[c.status] || { bg: '#241f2e', text: '#c9a6ff' };
-                    const score = candidateScores[c.name] || Math.floor(Math.random() * 25) + 72;
+                    const score = aiService.calculateMatchScore(c);
+                    const isSelected = selectedIds.includes(c.id);
+
                     return (
                       <tr
                         key={c.id}
                         style={{ borderTop: isDark ? '1px solid #1a1820' : '1px solid #eeecf5' }}
-                        className={clsx('transition-colors group', isDark ? 'hover:bg-[#16151c]' : 'hover:bg-[#f8f7fc]')}
+                        className={clsx('transition-colors group', isSelected ? (isDark ? 'bg-[#1e1927]' : 'bg-[#f3ecfd]') : (isDark ? 'hover:bg-[#16151c]' : 'hover:bg-[#f8f7fc]'))}
                       >
+                        <td className="px-4 py-3.5">
+                          <input
+                            type="checkbox"
+                            checked={isSelected}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setSelectedIds((prev) => [...prev, c.id]);
+                              } else {
+                                setSelectedIds((prev) => prev.filter((id) => id !== c.id));
+                              }
+                            }}
+                            className="rounded border-[#24212c] cursor-pointer"
+                          />
+                        </td>
                         <td className="px-5 py-3.5">
                           <div className="flex items-center gap-3">
                             <div

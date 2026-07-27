@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { Sparkles, AlertTriangle, FileText, CheckCircle2 } from 'lucide-react';
 import { candidateService } from '../../services/candidateService';
+import { aiService } from '../../services/aiService';
 import type { Candidate, CandidateFormData, CandidateStatus } from '../../types';
 import { Input, Select, Textarea } from '../../components/UI/FormFields';
 import { Button } from '../../components/UI/Button';
@@ -22,16 +24,58 @@ interface CandidateFormProps {
 
 export const CandidateForm: React.FC<CandidateFormProps> = ({ candidate, onSaved, onCancel }) => {
   const [resumeFile, setResumeFile] = useState<File | null>(null);
+  const [allCandidates, setAllCandidates] = useState<Candidate[]>([]);
+  const [duplicate, setDuplicate] = useState<Candidate | null>(null);
+  const [parsedNotice, setParsedNotice] = useState(false);
 
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<CandidateFormData>({
     defaultValues: candidate
       ? { ...candidate, skills: candidate.skills.join(', ') }
       : { status: 'Applied', department: 'Engineering' },
   });
+
+  const watchEmail = watch('email');
+  const watchPhone = watch('phone');
+
+  useEffect(() => {
+    candidateService.getAll().then((res) => setAllCandidates(res.data));
+  }, []);
+
+  // Live duplicate checking
+  useEffect(() => {
+    if (watchEmail || watchPhone) {
+      const match = aiService.findDuplicates(watchEmail || '', watchPhone || '', allCandidates, candidate?.id);
+      setDuplicate(match);
+    } else {
+      setDuplicate(null);
+    }
+  }, [watchEmail, watchPhone, allCandidates, candidate?.id]);
+
+  // Handle file select & AI resume auto-parsing
+  const handleFileSelect = (file: File | null) => {
+    setResumeFile(file);
+    if (file && !candidate) {
+      const parsed = aiService.parseResumeFile(file.name);
+      setValue('name', parsed.name);
+      setValue('email', parsed.email);
+      setValue('phone', parsed.phone);
+      setValue('role', parsed.role);
+      setValue('department', parsed.department);
+      setValue('experience', parsed.experience);
+      setValue('location', parsed.location);
+      setValue('skills', parsed.skills);
+      setValue('salary', parsed.salary);
+      setValue('notes', parsed.notes);
+      setParsedNotice(true);
+      setTimeout(() => setParsedNotice(false), 4000);
+    }
+  };
 
   const onSubmit = async (data: CandidateFormData) => {
     if (candidate) {
@@ -49,7 +93,35 @@ export const CandidateForm: React.FC<CandidateFormProps> = ({ candidate, onSaved
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} id="candidate-form" className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} id="candidate-form" className="space-y-4 text-[#f2f1f5]">
+      {/* Resume Upload & AI Parsing Banner */}
+      <div className="p-4 rounded-2xl bg-[#18161e] border border-[#24212c] space-y-2">
+        <div className="flex items-center justify-between">
+          <p className="text-xs font-semibold text-[#e0b3ff] flex items-center gap-1.5">
+            <Sparkles size={14} className="text-[#c94dff]" /> AI Resume Auto-Parser & Dossier Upload
+          </p>
+          {parsedNotice && (
+            <span className="text-xs text-[#5fe0a8] font-medium animate-fade-in flex items-center gap-1">
+              <CheckCircle2 size={13} /> Auto-filled from resume!
+            </span>
+          )}
+        </div>
+        <FileUpload
+          onFileSelect={handleFileSelect}
+          currentFile={candidate?.resumeFile}
+        />
+      </div>
+
+      {/* Duplicate Warning Alert */}
+      {duplicate && (
+        <div className="p-3 rounded-xl bg-amber-950/40 border border-amber-500/40 text-amber-400 text-xs flex items-center gap-2 animate-fade-in">
+          <AlertTriangle size={16} className="shrink-0" />
+          <div>
+            <strong>Possible Duplicate Detected:</strong> Candidate <strong>{duplicate.name}</strong> ({duplicate.email}) already exists in database.
+          </div>
+        </div>
+      )}
+
       <div className="grid sm:grid-cols-2 gap-4">
         <Input
           label="Full Name"
@@ -116,14 +188,6 @@ export const CandidateForm: React.FC<CandidateFormProps> = ({ candidate, onSaved
         placeholder="Additional notes about this candidate..."
         {...register('notes')}
       />
-
-      <div>
-        <p className="text-xs font-medium mb-2 text-[#a8a6b3]">Resume / CV</p>
-        <FileUpload
-          onFileSelect={setResumeFile}
-          currentFile={candidate?.resumeFile}
-        />
-      </div>
 
       <div className="flex gap-3 pt-2">
         <Button type="button" variant="outline" className="flex-1" onClick={onCancel}>

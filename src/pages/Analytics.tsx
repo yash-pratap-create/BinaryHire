@@ -4,7 +4,7 @@ import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, Legend,
 } from 'recharts';
-import { TrendingUp, Users, Briefcase, Clock, ArrowUpRight } from 'lucide-react';
+import { TrendingUp, Users, Briefcase, Clock, ArrowUpRight, Globe } from 'lucide-react';
 import { candidateService } from '../services/candidateService';
 import { roleService } from '../services/roleService';
 import { useTheme } from '../context/ThemeContext';
@@ -219,40 +219,50 @@ export const AnalyticsPage: React.FC = () => {
           </ResponsiveContainer>
         </ChartCard>
 
-        {/* Department Distribution - PieChart */}
+        {/* Source of Hire Breakdown - Donut Chart */}
         <ChartCard
-          title="Roles by Department"
-          subtitle="Open positions distribution"
-          icon={<Briefcase size={18} />}
+          title="Source-of-Hire Breakdown"
+          subtitle="Where candidate talent is sourced from"
+          icon={<Globe size={18} />}
           isDark={isDark}
         >
-          <div className="flex items-center gap-4">
-            <ResponsiveContainer width="55%" height={220}>
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <ResponsiveContainer width="100%" height={220} className="sm:w-1/2">
               <PieChart>
                 <Pie
-                  data={deptPieData.length > 0 ? deptPieData : [{ name: 'Engineering', value: 3 }, { name: 'Product', value: 1 }, { name: 'Design', value: 1 }, { name: 'Data', value: 1 }]}
+                  data={[
+                    { name: 'LinkedIn', value: 45 },
+                    { name: 'Campus Referral', value: 35 },
+                    { name: 'Career Portal', value: 15 },
+                    { name: 'Direct Application', value: 10 },
+                  ]}
                   cx="50%"
                   cy="50%"
                   innerRadius={55}
                   outerRadius={85}
-                  paddingAngle={3}
+                  paddingAngle={4}
                   dataKey="value"
                 >
-                  {(deptPieData.length > 0 ? deptPieData : []).map((_, i) => (
-                    <Cell key={i} fill={PIE_COLORS[i % PIE_COLORS.length]} />
+                  {['#c94dff', '#5ce1e6', '#7c3aed', '#5fe0a8'].map((color, i) => (
+                    <Cell key={i} fill={color} />
                   ))}
                 </Pie>
-                <Tooltip contentStyle={tooltipStyle} />
+                <Tooltip contentStyle={tooltipStyle} formatter={(val) => [`${val}%`, 'Share']} />
               </PieChart>
             </ResponsiveContainer>
-            <div className="flex-1 space-y-2">
-              {(deptPieData.length > 0 ? deptPieData : [{ name: 'Engineering', value: 3 }, { name: 'Product', value: 1 }, { name: 'Design', value: 1 }]).map((entry, i) => (
-                <div key={entry.name} className="flex items-center justify-between">
+            <div className="w-full sm:w-1/2 space-y-2.5">
+              {[
+                { name: 'LinkedIn', value: '45%', color: '#c94dff' },
+                { name: 'Campus Referral', value: '35%', color: '#5ce1e6' },
+                { name: 'Career Portal', value: '15%', color: '#7c3aed' },
+                { name: 'Direct Application', value: '10%', color: '#5fe0a8' },
+              ].map((entry) => (
+                <div key={entry.name} className="flex items-center justify-between p-2 rounded-xl bg-[#18161e] border border-[#24212c]">
                   <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: PIE_COLORS[i % PIE_COLORS.length] }} />
-                    <span className="text-xs" style={{ color: isDark ? '#8b899a' : '#6b6875' }}>{entry.name}</span>
+                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: entry.color }} />
+                    <span className="text-xs font-medium" style={{ color: isDark ? '#f2f1f5' : '#18141f' }}>{entry.name}</span>
                   </div>
-                  <span className="text-xs font-semibold" style={{ color: isDark ? '#f2f1f5' : '#18141f' }}>{entry.value}</span>
+                  <span className="text-xs font-mono font-bold text-[#c94dff]">{entry.value}</span>
                 </div>
               ))}
             </div>

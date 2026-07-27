@@ -37,7 +37,39 @@
       "resumeFile": "jordan_lee_resume.pdf",
       "appliedDate": "2024-01-15",
       "salary": "$120,000",
-      "notes": "Strong portfolio, excellent communication skills."
+      "notes": "Strong portfolio, excellent communication skills.",
+      "source": "LinkedIn",
+      "scorecards": [
+        {
+          "id": "sc-1",
+          "candidateId": "1",
+          "interviewer": "Yash Pratap Singh",
+          "round": "Technical Round",
+          "technicalRating": 5,
+          "communicationRating": 4,
+          "problemSolvingRating": 5,
+          "cultureFitRating": 5,
+          "recommendation": "Strong Hire",
+          "comments": "Excellent React & TypeScript knowledge. Solved algorithm problem cleanly.",
+          "date": "2024-01-20"
+        }
+      ],
+      "comments": [
+        {
+          "id": "cm-1",
+          "candidateId": "1",
+          "author": "Ananya Sharma",
+          "text": "Great initial conversation! @Yash Pratap Singh candidate is ready for offer approval.",
+          "date": "2024-01-21"
+        }
+      ],
+      "offerApproval": {
+        "stage": "HR Approved",
+        "managerApprovedBy": "Yash Pratap Singh",
+        "hrApprovedBy": "Ananya Sharma",
+        "salaryOffered": "$125,000",
+        "startDate": "2024-02-15"
+      }
     },
     {
       "id": "2",
