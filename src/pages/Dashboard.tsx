@@ -262,17 +262,19 @@ export const DashboardPage: React.FC = () => {
             >
               <Users size={15} /> Explore Candidates
             </Link>
-            <Link
-              to="/roles"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold border transition-all hover:scale-105 cursor-pointer"
-              style={{
-                background: isDark ? '#1a1820' : '#ffffff',
-                borderColor: isDark ? '#2a2733' : '#e9d5ff',
-                color: isDark ? '#f2f1f5' : '#18141f',
-              }}
-            >
-              <Plus size={15} /> Post Job Role
-            </Link>
+            {user?.role === 'Admin' && (
+              <Link
+                to="/roles?new=true"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold border transition-all hover:scale-105 cursor-pointer"
+                style={{
+                  background: isDark ? '#1a1820' : '#ffffff',
+                  borderColor: isDark ? '#2a2733' : '#e9d5ff',
+                  color: isDark ? '#f2f1f5' : '#18141f',
+                }}
+              >
+                <Plus size={15} /> Post Job Role
+              </Link>
+            )}
           </div>
         </div>
 

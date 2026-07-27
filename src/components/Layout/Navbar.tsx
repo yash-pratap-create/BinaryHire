@@ -35,6 +35,7 @@ export const Navbar: React.FC = () => {
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
 
   const isAdmin = user?.role === 'Admin';
+  const canPostRole = user?.role === 'Admin' || user?.role === 'Recruiter';
 
   const handleLogout = () => {
     logout();
@@ -99,8 +100,8 @@ export const Navbar: React.FC = () => {
 
       {/* Right: Quick Action, Search, Theme & Profile */}
       <div className="flex items-center gap-2.5">
-        {/* Quick Role Action Button (Admin Only) */}
-        {isAdmin && (
+        {/* Quick Role Action Button (Admin & Recruiter) */}
+        {canPostRole && (
           <button
             type="button"
             onClick={() => navigate('/roles?new=true')}
