@@ -23,12 +23,12 @@ export const candidateService = {
     return response.data;
   },
 
-  async update(id: string, data: CandidateFormData) {
-    const candidate = {
-      ...data,
-      skills: data.skills.split(',').map((s) => s.trim()).filter(Boolean),
-    };
-    const response = await api.put<Candidate>(`/candidates/${id}`, { id, ...candidate });
+  async update(id: string, data: Partial<CandidateFormData> & Partial<Candidate>) {
+    const candidateToUpdate: Record<string, any> = { ...data };
+    if (typeof data.skills === 'string') {
+      candidateToUpdate.skills = (data.skills as string).split(',').map((s) => s.trim()).filter(Boolean);
+    }
+    const response = await api.patch<Candidate>(`/candidates/${id}`, candidateToUpdate);
     return response.data;
   },
 
