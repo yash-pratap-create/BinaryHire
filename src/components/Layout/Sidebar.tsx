@@ -173,7 +173,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               className="w-full flex items-center justify-center gap-1.5 text-xs font-medium py-2 rounded-lg transition-all hover:opacity-90 cursor-pointer"
               style={{ background: 'linear-gradient(135deg,#c94dff,#7c3aed)', color: '#0c0b10' }}
             >
-              <Plus size={13} /> New role
+              {user?.role === 'Admin' ? (
+                <><Plus size={13} /> New role</>
+              ) : (
+                <>View roles</>
+              )}
             </button>
           </div>
 

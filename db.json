@@ -25,10 +25,15 @@
       "phone": "+1-555-0101",
       "role": "Frontend Engineer",
       "department": "Engineering",
-      "status": "Interview",
+      "status": "Offer",
       "experience": "4 years",
       "location": "San Francisco, CA",
-      "skills": ["React", "TypeScript", "CSS", "GraphQL"],
+      "skills": [
+        "React",
+        "TypeScript",
+        "CSS",
+        "GraphQL"
+      ],
       "resumeFile": "jordan_lee_resume.pdf",
       "appliedDate": "2024-01-15",
       "salary": "$120,000",
@@ -44,7 +49,12 @@
       "status": "Screening",
       "experience": "6 years",
       "location": "New York, NY",
-      "skills": ["Node.js", "Python", "PostgreSQL", "Docker"],
+      "skills": [
+        "Node.js",
+        "Python",
+        "PostgreSQL",
+        "Docker"
+      ],
       "resumeFile": "taylor_kim_resume.pdf",
       "appliedDate": "2024-01-18",
       "salary": "$140,000",
@@ -60,7 +70,12 @@
       "status": "Offer",
       "experience": "8 years",
       "location": "Austin, TX",
-      "skills": ["Product Strategy", "Agile", "Analytics", "Roadmapping"],
+      "skills": [
+        "Product Strategy",
+        "Agile",
+        "Analytics",
+        "Roadmapping"
+      ],
       "resumeFile": "morgan_chen_resume.pdf",
       "appliedDate": "2024-01-10",
       "salary": "$150,000",
@@ -76,7 +91,12 @@
       "status": "Hired",
       "experience": "5 years",
       "location": "Seattle, WA",
-      "skills": ["Python", "ML", "TensorFlow", "SQL"],
+      "skills": [
+        "Python",
+        "ML",
+        "TensorFlow",
+        "SQL"
+      ],
       "resumeFile": "riley_johnson_resume.pdf",
       "appliedDate": "2024-01-05",
       "salary": "$135,000",
@@ -92,7 +112,12 @@
       "status": "Applied",
       "experience": "3 years",
       "location": "Chicago, IL",
-      "skills": ["Figma", "User Research", "Prototyping", "CSS"],
+      "skills": [
+        "Figma",
+        "User Research",
+        "Prototyping",
+        "CSS"
+      ],
       "resumeFile": "",
       "appliedDate": "2024-01-22",
       "salary": "$95,000",
@@ -108,7 +133,12 @@
       "status": "Rejected",
       "experience": "7 years",
       "location": "Denver, CO",
-      "skills": ["Kubernetes", "AWS", "Terraform", "CI/CD"],
+      "skills": [
+        "Kubernetes",
+        "AWS",
+        "Terraform",
+        "CI/CD"
+      ],
       "resumeFile": "drew_martinez_resume.pdf",
       "appliedDate": "2024-01-08",
       "salary": "$130,000",
@@ -124,7 +154,12 @@
       "status": "Interview",
       "experience": "6 years",
       "location": "Boston, MA",
-      "skills": ["SEO", "Content Strategy", "Analytics", "Growth"],
+      "skills": [
+        "SEO",
+        "Content Strategy",
+        "Analytics",
+        "Growth"
+      ],
       "resumeFile": "avery_thompson_resume.pdf",
       "appliedDate": "2024-01-19",
       "salary": "$110,000",
@@ -140,7 +175,12 @@
       "status": "Screening",
       "experience": "4 years",
       "location": "Miami, FL",
-      "skills": ["B2B Sales", "CRM", "Negotiation", "Prospecting"],
+      "skills": [
+        "B2B Sales",
+        "CRM",
+        "Negotiation",
+        "Prospecting"
+      ],
       "resumeFile": "",
       "appliedDate": "2024-01-21",
       "salary": "$105,000",
@@ -158,7 +198,12 @@
       "salary": "$120,000 - $150,000",
       "experience": "4+ years",
       "description": "We're looking for a Senior Frontend Engineer to lead our React/TypeScript ecosystem.",
-      "requirements": ["React", "TypeScript", "GraphQL", "Testing"],
+      "requirements": [
+        "React",
+        "TypeScript",
+        "GraphQL",
+        "Testing"
+      ],
       "postedDate": "2024-01-10",
       "deadline": "2024-02-28",
       "applicants": 24,
@@ -174,7 +219,12 @@
       "salary": "$130,000 - $160,000",
       "experience": "5+ years",
       "description": "Join our backend team to build scalable microservices.",
-      "requirements": ["Node.js", "Python", "PostgreSQL", "Docker"],
+      "requirements": [
+        "Node.js",
+        "Python",
+        "PostgreSQL",
+        "Docker"
+      ],
       "postedDate": "2024-01-12",
       "deadline": "2024-03-01",
       "applicants": 18,
@@ -190,7 +240,11 @@
       "salary": "$140,000 - $170,000",
       "experience": "6+ years",
       "description": "Define the roadmap for our core platform products.",
-      "requirements": ["Product Strategy", "Agile", "Data Analysis"],
+      "requirements": [
+        "Product Strategy",
+        "Agile",
+        "Data Analysis"
+      ],
       "postedDate": "2024-01-08",
       "deadline": "2024-02-20",
       "applicants": 31,
@@ -206,7 +260,11 @@
       "salary": "$90,000 - $115,000",
       "experience": "3+ years",
       "description": "Design intuitive interfaces for our recruitment platform.",
-      "requirements": ["Figma", "User Research", "Prototyping"],
+      "requirements": [
+        "Figma",
+        "User Research",
+        "Prototyping"
+      ],
       "postedDate": "2024-01-15",
       "deadline": "2024-02-25",
       "applicants": 14,
@@ -222,7 +280,12 @@
       "salary": "$125,000 - $155,000",
       "experience": "4+ years",
       "description": "Build predictive models for candidate matching.",
-      "requirements": ["Python", "ML", "TensorFlow", "SQL"],
+      "requirements": [
+        "Python",
+        "ML",
+        "TensorFlow",
+        "SQL"
+      ],
       "postedDate": "2023-12-01",
       "deadline": "2024-01-15",
       "applicants": 42,
@@ -238,7 +301,12 @@
       "salary": "$110,000 - $140,000",
       "experience": "5+ years",
       "description": "Manage our cloud infrastructure and CI/CD pipelines.",
-      "requirements": ["Kubernetes", "AWS", "Terraform", "CI/CD"],
+      "requirements": [
+        "Kubernetes",
+        "AWS",
+        "Terraform",
+        "CI/CD"
+      ],
       "postedDate": "2024-01-05",
       "deadline": "2024-02-15",
       "applicants": 9,
@@ -246,11 +314,48 @@
     }
   ],
   "activity": [
-    { "id": "1", "type": "hired", "text": "Riley Johnson was hired as Data Scientist", "time": "2 hours ago", "icon": "check" },
-    { "id": "2", "type": "interview", "text": "Interview scheduled: Jordan Lee — Frontend Engineer", "time": "4 hours ago", "icon": "calendar" },
-    { "id": "3", "type": "applied", "text": "Quinn Davis applied for Sales Executive", "time": "5 hours ago", "icon": "user" },
-    { "id": "4", "type": "offer", "text": "Offer extended to Morgan Chen — Product Manager", "time": "Yesterday", "icon": "star" },
-    { "id": "5", "type": "role", "text": "New role posted: UX Designer", "time": "Yesterday", "icon": "briefcase" },
-    { "id": "6", "type": "applied", "text": "Casey Wilson applied for UX Designer", "time": "2 days ago", "icon": "user" }
-  ]
+    {
+      "id": "1",
+      "type": "hired",
+      "text": "Riley Johnson was hired as Data Scientist",
+      "time": "2 hours ago",
+      "icon": "check"
+    },
+    {
+      "id": "2",
+      "type": "interview",
+      "text": "Interview scheduled: Jordan Lee — Frontend Engineer",
+      "time": "4 hours ago",
+      "icon": "calendar"
+    },
+    {
+      "id": "3",
+      "type": "applied",
+      "text": "Quinn Davis applied for Sales Executive",
+      "time": "5 hours ago",
+      "icon": "user"
+    },
+    {
+      "id": "4",
+      "type": "offer",
+      "text": "Offer extended to Morgan Chen — Product Manager",
+      "time": "Yesterday",
+      "icon": "star"
+    },
+    {
+      "id": "5",
+      "type": "role",
+      "text": "New role posted: UX Designer",
+      "time": "Yesterday",
+      "icon": "briefcase"
+    },
+    {
+      "id": "6",
+      "type": "applied",
+      "text": "Casey Wilson applied for UX Designer",
+      "time": "2 days ago",
+      "icon": "user"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
