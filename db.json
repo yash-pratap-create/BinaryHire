@@ -36,7 +36,7 @@
       ],
       "resumeFile": "jordan_lee_resume.pdf",
       "appliedDate": "2024-01-15",
-      "salary": "$120,000",
+      "salary": "10-15 hrs/wk (Voluntary)",
       "notes": "Strong portfolio, excellent communication skills.",
       "source": "LinkedIn",
       "scorecards": [
@@ -67,7 +67,7 @@
         "stage": "HR Approved",
         "managerApprovedBy": "Yash Pratap Singh",
         "hrApprovedBy": "Ananya Sharma",
-        "salaryOffered": "$125,000",
+        "salaryOffered": "Core Tech Lead (AWS Club)",
         "startDate": "2024-02-15"
       }
     },
@@ -89,7 +89,7 @@
       ],
       "resumeFile": "taylor_kim_resume.pdf",
       "appliedDate": "2024-01-18",
-      "salary": "$140,000",
+      "salary": "12-15 hrs/wk (Voluntary)",
       "notes": "Referred by internal team."
     },
     {
@@ -215,7 +215,7 @@
       ],
       "resumeFile": "",
       "appliedDate": "2024-01-21",
-      "salary": "$105,000",
+      "salary": "8-10 hrs/wk (Voluntary)",
       "notes": ""
     }
   ],
@@ -227,7 +227,7 @@
       "location": "Remote",
       "type": "Full-time",
       "status": "Open",
-      "salary": "$120,000 - $150,000",
+      "salary": "8-12 hrs/wk (Voluntary Club Role)",
       "experience": "4+ years",
       "description": "We're looking for a Senior Frontend Engineer to lead our React/TypeScript ecosystem.",
       "requirements": [
@@ -248,7 +248,7 @@
       "location": "New York, NY",
       "type": "Full-time",
       "status": "Open",
-      "salary": "$130,000 - $160,000",
+      "salary": "10-15 hrs/wk (Voluntary Club Role)",
       "experience": "5+ years",
       "description": "Join our backend team to build scalable microservices.",
       "requirements": [
@@ -269,7 +269,7 @@
       "location": "Austin, TX",
       "type": "Full-time",
       "status": "Open",
-      "salary": "$140,000 - $170,000",
+      "salary": "10-12 hrs/wk (Voluntary Club Role)",
       "experience": "6+ years",
       "description": "Define the roadmap for our core platform products.",
       "requirements": [
@@ -289,7 +289,7 @@
       "location": "Remote",
       "type": "Full-time",
       "status": "Open",
-      "salary": "$90,000 - $115,000",
+      "salary": "6-10 hrs/wk (Voluntary Club Role)",
       "experience": "3+ years",
       "description": "Design intuitive interfaces for our recruitment platform.",
       "requirements": [
@@ -309,7 +309,7 @@
       "location": "Seattle, WA",
       "type": "Full-time",
       "status": "Closed",
-      "salary": "$125,000 - $155,000",
+      "salary": "8-12 hrs/wk (Voluntary Club Role)",
       "experience": "4+ years",
       "description": "Build predictive models for candidate matching.",
       "requirements": [
@@ -330,7 +330,7 @@
       "location": "Remote",
       "type": "Contract",
       "status": "Paused",
-      "salary": "$110,000 - $140,000",
+      "salary": "5-8 hrs/wk (Voluntary Club Role)",
       "experience": "5+ years",
       "description": "Manage our cloud infrastructure and CI/CD pipelines.",
       "requirements": [

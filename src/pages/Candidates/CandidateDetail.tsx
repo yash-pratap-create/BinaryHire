@@ -165,7 +165,7 @@ export const CandidateDetail: React.FC<CandidateDetailProps> = ({ candidate, onE
           <div className="grid sm:grid-cols-2 gap-3">
             {[
               { icon: <Briefcase size={14} />, label: 'Experience', value: candidate.experience },
-              { icon: <DollarSign size={14} />, label: 'Salary Expectation', value: candidate.salary || '—' },
+              { icon: <Briefcase size={14} />, label: 'Position Type', value: 'AWS Club Member (Voluntary)' },
               { icon: <Calendar size={14} />, label: 'Applied Date', value: formatDate(candidate.appliedDate) },
               { icon: <Star size={14} />, label: 'Interviewer Rating', value: avgRating ? `${avgRating} / 5.0 ⭐` : 'No scorecards yet' },
             ].map((item) => (
@@ -383,7 +383,7 @@ export const CandidateDetail: React.FC<CandidateDetailProps> = ({ candidate, onE
           </div>
 
           <div className="p-3 rounded-xl bg-[#111116] text-xs space-y-1 text-[#8b899a]">
-            <p><strong>Salary Offered:</strong> {candidate.offerApproval?.salaryOffered || candidate.salary || '$125,000'}</p>
+            <p><strong>Position Designation:</strong> {candidate.role} — AWS Student Club Member</p>
             {candidate.offerApproval?.managerApprovedBy && (
               <p><strong>Hiring Manager Approval:</strong> Verified by {candidate.offerApproval.managerApprovedBy}</p>
             )}

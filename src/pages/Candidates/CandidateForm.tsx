@@ -166,8 +166,8 @@ export const CandidateForm: React.FC<CandidateFormProps> = ({ candidate, onSaved
           {...register('experience')}
         />
         <Input
-          label="Expected Salary"
-          placeholder="$120,000"
+          label="Weekly Time Commitment"
+          placeholder="10 hrs/week (Voluntary)"
           {...register('salary')}
         />
         <Select

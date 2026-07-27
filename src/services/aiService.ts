@@ -58,7 +58,7 @@ export const aiService = {
       experience,
       location: 'Bengaluru, India',
       skills: extractedSkills.join(', '),
-      salary: '$130,000',
+      salary: 'Voluntary Club Role',
       notes: 'Auto-parsed from uploaded resume dossier.',
     };
   },
