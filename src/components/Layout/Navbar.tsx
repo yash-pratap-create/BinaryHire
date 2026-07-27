@@ -76,11 +76,11 @@ export const Navbar: React.FC = () => {
                 'flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer relative',
                 isActive
                   ? (isDark
-                      ? 'bg-[#1e1927] text-[#e0b3ff] border border-[#372b49] shadow-sm shadow-[#c94dff]/20'
-                      : 'bg-white text-[#7c3aed] border border-[#e9d5ff] shadow-sm')
+                    ? 'bg-[#1e1927] text-[#e0b3ff] border border-[#372b49] shadow-sm shadow-[#c94dff]/20'
+                    : 'bg-white text-[#7c3aed] border border-[#e9d5ff] shadow-sm')
                   : (isDark
-                      ? 'text-[#8b899a] hover:text-[#f2f1f5] hover:bg-[#1a1820]'
-                      : 'text-[#6b6875] hover:text-[#18141f] hover:bg-white/60')
+                    ? 'text-[#8b899a] hover:text-[#f2f1f5] hover:bg-[#1a1820]'
+                    : 'text-[#6b6875] hover:text-[#18141f] hover:bg-white/60')
               )}
             >
               <Icon size={14} className={clsx('transition-transform duration-200', isActive && 'scale-110')} />
