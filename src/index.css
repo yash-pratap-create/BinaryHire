@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50: #fbf4ff;
+  --color-brand-100: #f4e3ff;
+  --color-brand-200: #e9c9ff;
+  --color-brand-300: #d99eff;
+  --color-brand-400: #ca6dff;
+  --color-brand-500: #c94dff;
+  --color-brand-600: #a82ee6;
+  --color-brand-700: #7c3aed;
+  --color-brand-800: #5b2a9e;
+  --color-brand-900: #3b176d;
+
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+  --font-family-space: 'Space Grotesk', sans-serif;
+  --font-family-mono: 'JetBrains Mono', monospace;
+
+  --animate-fade-in: fadeIn 0.3s ease-in-out;
+  --animate-slide-in: slideIn 0.3s ease-out;
+  --animate-slide-up: slideUp 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-16px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Base styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Inter', system-ui, sans-serif;
+  scroll-behavior: smooth;
+  background-color: #08070b;
+  color: #f2f1f5;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #08070b;
+  color: #f2f1f5;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0c0b10;
+}
+::-webkit-scrollbar-thumb {
+  background: #24212c;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c94dff;
+}
+
+/* Custom utilities */
+.glass {
+  background: rgba(17, 17, 22, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #1f1d27;
+}
+
+.card-shadow {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.card-shadow:hover {
+  box-shadow: 0 6px 24px rgba(201, 77, 255, 0.15);
+}
+
+.glow {
+  box-shadow: 0 0 24px -4px rgba(201, 77, 255, 0.4);
+}
+
+/* Gradient backgrounds */
+.gradient-brand {
+  background: linear-gradient(135deg, #c94dff 0%, #7c3aed 100%);
+}
+
+.gradient-hero {
+  background: linear-gradient(135deg, #08070b 0%, #0c0b10 50%, #111116 100%);
+}
+
+/* Chart tooltip */
+.recharts-tooltip-wrapper {
+  outline: none;
+}
+
+/* Animations */
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out;
+}
