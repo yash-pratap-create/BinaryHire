@@ -80,7 +80,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
           </button>
           <input
             placeholder="Search candidates, roles..."
-            className="bg-transparent outline-none text-xs w-full pr-16"
+            className="bg-transparent outline-none text-xs w-full"
             style={{
               color: isDark ? '#f2f1f5' : '#18141f',
             }}
@@ -91,18 +91,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
               }
             }}
           />
-          <button
-            type="submit"
-            className="absolute right-1.5 text-xs font-semibold px-2 py-0.5 rounded transition-all cursor-pointer hover:scale-105"
-            style={{
-              background: isDark ? '#1a1820' : '#f3ecfd',
-              color: isDark ? '#c94dff' : '#7c3aed',
-              border: isDark ? '1px solid #2a2733' : '1px solid #e9d5ff',
-            }}
-            title="Click or press Enter to search"
-          >
-            ↵
-          </button>
         </form>
 
         {/* Notifications */}
