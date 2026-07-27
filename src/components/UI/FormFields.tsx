@@ -42,10 +42,11 @@ export const Input: React.FC<InputProps> = ({ label, error, leftIcon, className,
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
   error?: string;
-  options: { value: string; label: string }[];
+  options?: { value: string; label: string }[];
+  children?: React.ReactNode;
 }
 
-export const Select: React.FC<SelectProps> = ({ label, error, options, className, id, ...props }) => {
+export const Select: React.FC<SelectProps> = ({ label, error, options, children, className, id, ...props }) => {
   const selectId = id || label?.toLowerCase().replace(/\s+/g, '-');
   return (
     <div className="flex flex-col gap-1.5">
@@ -66,11 +67,13 @@ export const Select: React.FC<SelectProps> = ({ label, error, options, className
         )}
         {...props}
       >
-        {options.map((opt) => (
-          <option key={opt.value} value={opt.value} className="bg-[#111116] text-[#f2f1f5]">
-            {opt.label}
-          </option>
-        ))}
+        {children
+          ? children
+          : options?.map((opt) => (
+              <option key={opt.value} value={opt.value} className="bg-[#111116] text-[#f2f1f5]">
+                {opt.label}
+              </option>
+            ))}
       </select>
       {error && <p className="text-xs text-red-400">{error}</p>}
     </div>
