@@ -4,17 +4,17 @@
       "id": "1",
       "email": "admin@binaryhire.com",
       "password": "admin123",
-      "name": "Alex Morgan",
+      "name": "Yash Pratap Singh",
       "role": "Admin",
-      "avatar": "AM"
+      "avatar": "YP"
     },
     {
       "id": "2",
       "email": "recruiter@binaryhire.com",
       "password": "recruiter123",
-      "name": "Sam Rivera",
+      "name": "Ananya Sharma",
       "role": "Recruiter",
-      "avatar": "SR"
+      "avatar": "AS"
     }
   ],
   "candidates": [
@@ -162,7 +162,7 @@
       "postedDate": "2024-01-10",
       "deadline": "2024-02-28",
       "applicants": 24,
-      "hiringManager": "Alex Morgan"
+      "hiringManager": "Yash Pratap Singh"
     },
     {
       "id": "2",
@@ -178,7 +178,7 @@
       "postedDate": "2024-01-12",
       "deadline": "2024-03-01",
       "applicants": 18,
-      "hiringManager": "Sam Rivera"
+      "hiringManager": "Ananya Sharma"
     },
     {
       "id": "3",
@@ -194,7 +194,7 @@
       "postedDate": "2024-01-08",
       "deadline": "2024-02-20",
       "applicants": 31,
-      "hiringManager": "Alex Morgan"
+      "hiringManager": "Yash Pratap Singh"
     },
     {
       "id": "4",
@@ -210,7 +210,7 @@
       "postedDate": "2024-01-15",
       "deadline": "2024-02-25",
       "applicants": 14,
-      "hiringManager": "Sam Rivera"
+      "hiringManager": "Ananya Sharma"
     },
     {
       "id": "5",
@@ -226,7 +226,7 @@
       "postedDate": "2023-12-01",
       "deadline": "2024-01-15",
       "applicants": 42,
-      "hiringManager": "Alex Morgan"
+      "hiringManager": "Yash Pratap Singh"
     },
     {
       "id": "6",
@@ -242,7 +242,7 @@
       "postedDate": "2024-01-05",
       "deadline": "2024-02-15",
       "applicants": 9,
-      "hiringManager": "Sam Rivera"
+      "hiringManager": "Ananya Sharma"
     }
   ],
   "activity": [

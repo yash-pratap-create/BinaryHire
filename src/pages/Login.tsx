@@ -367,7 +367,7 @@ export const LoginPage: React.FC = () => {
                   <input
                     id="signup-name"
                     type="text"
-                    placeholder="e.g. Alex Morgan"
+                    placeholder="e.g. Yash Pratap Singh"
                     {...register('name', {
                       required: isSignUp ? 'Full Name is required' : false,
                     })}

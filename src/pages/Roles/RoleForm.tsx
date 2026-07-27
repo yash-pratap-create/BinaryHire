@@ -52,7 +52,7 @@ export const RoleForm: React.FC<RoleFormProps> = ({ role, onSaved, onCancel }) =
         <Select label="Status" options={STATUS_OPTIONS} {...register('status')} />
         <Input label="Salary Range" placeholder="$120,000 - $150,000" {...register('salary')} />
         <Input label="Experience Required" placeholder="4+ years" {...register('experience')} />
-        <Input label="Hiring Manager" placeholder="Alex Morgan" {...register('hiringManager')} />
+        <Input label="Hiring Manager" placeholder="Yash Pratap Singh" {...register('hiringManager')} />
         <Input label="Application Deadline" type="date" {...register('deadline')} />
       </div>
 

@@ -10,6 +10,7 @@ import { getInitials, formatDate, downloadCandidateResume } from '../../utils/he
 import { useSearch } from '../../hooks/useSearch';
 import { usePagination } from '../../hooks/usePagination';
 import { useTheme } from '../../context/ThemeContext';
+import { useAuth } from '../../context/AuthContext';
 import { Button } from '../../components/UI/Button';
 import { Modal } from '../../components/UI/Modal';
 import { Pagination } from '../../components/UI/Pagination';
@@ -75,6 +76,8 @@ function ScoreRing({ score, isDark }: { score: number; isDark: boolean }) {
 
 export const CandidatesPage: React.FC = () => {
   const { isDark } = useTheme();
+  const { user } = useAuth();
+  const isAdmin = user?.role === 'Admin';
   const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState<string>('All');
@@ -311,13 +314,15 @@ export const CandidatesPage: React.FC = () => {
                             >
                               <Download size={15} />
                             </button>
-                            <button
-                              onClick={() => setDeleteId(c.id)}
-                              className="p-1.5 rounded-lg text-[#8b899a] hover:text-red-400 hover:bg-[#1a1820] transition-colors cursor-pointer"
-                              title="Delete"
-                            >
-                              <Trash2 size={15} />
-                            </button>
+                            {isAdmin && (
+                              <button
+                                onClick={() => setDeleteId(c.id)}
+                                className="p-1.5 rounded-lg text-[#8b899a] hover:text-red-400 hover:bg-[#1a1820] transition-colors cursor-pointer"
+                                title="Delete candidate (Admin only)"
+                              >
+                                <Trash2 size={15} />
+                              </button>
+                            )}
                           </div>
                         </td>
                       </tr>

@@ -7,6 +7,7 @@ import { formatDate } from '../../utils/helpers';
 import { useSearch } from '../../hooks/useSearch';
 import { usePagination } from '../../hooks/usePagination';
 import { useTheme } from '../../context/ThemeContext';
+import { useAuth } from '../../context/AuthContext';
 import { Button } from '../../components/UI/Button';
 import { Modal } from '../../components/UI/Modal';
 import { Pagination } from '../../components/UI/Pagination';
@@ -17,6 +18,8 @@ const STATUS_OPTIONS = ['Open', 'Closed', 'Paused'];
 
 export const RolesPage: React.FC = () => {
   const { isDark } = useTheme();
+  const { user } = useAuth();
+  const isAdmin = user?.role === 'Admin';
   const [roles, setRoles] = useState<Role[]>([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState('All');
@@ -233,7 +236,7 @@ export const RolesPage: React.FC = () => {
                       {role.salary}
                     </p>
 
-                    <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="flex gap-2 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                       <Button
                         variant="outline"
                         size="sm"
@@ -243,14 +246,17 @@ export const RolesPage: React.FC = () => {
                       >
                         Edit
                       </Button>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => setDeleteId(role.id)}
-                        className="text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 px-2"
-                      >
-                        <Trash2 size={14} />
-                      </Button>
+                      {isAdmin && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setDeleteId(role.id)}
+                          className="text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 px-2"
+                          title="Delete role (Admin only)"
+                        >
+                          <Trash2 size={14} />
+                        </Button>
+                      )}
                     </div>
                   </div>
                 </div>

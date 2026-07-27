@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Moon, Sun, Bell, Shield, Trash2 } from 'lucide-react';
+import { Moon, Sun, Bell, Shield, Trash2, Lock } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { useAuth } from '../context/AuthContext';
 import { Button } from '../components/UI/Button';
 import { clsx } from 'clsx';
 
@@ -31,6 +32,8 @@ const Toggle: React.FC<ToggleProps> = ({ checked, onChange, id, isDark }) => (
 
 export const SettingsPage: React.FC = () => {
   const { isDark, toggleTheme } = useTheme();
+  const { user } = useAuth();
+  const isAdmin = user?.role === 'Admin';
   const [notifications, setNotifications] = useState({ email: true, browser: false, weekly: true });
   const [privacy, setPrivacy] = useState({ analytics: true, dataSharing: false });
 
@@ -49,16 +52,30 @@ export const SettingsPage: React.FC = () => {
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      <div>
-        <h2
-          className="text-2xl font-bold"
-          style={{ fontFamily: "'Space Grotesk', sans-serif", color: isDark ? '#f2f1f5' : '#18141f' }}
-        >
-          Platform Settings
-        </h2>
-        <p className="text-sm mt-1" style={{ color: isDark ? '#8b899a' : '#6b6875' }}>
-          Manage system preferences & notifications
-        </p>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h2
+            className="text-2xl font-bold"
+            style={{ fontFamily: "'Space Grotesk', sans-serif", color: isDark ? '#f2f1f5' : '#18141f' }}
+          >
+            Platform Settings
+          </h2>
+          <p className="text-sm mt-1" style={{ color: isDark ? '#8b899a' : '#6b6875' }}>
+            Manage system preferences & notifications
+          </p>
+        </div>
+        {user && (
+          <span
+            className="px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5"
+            style={{
+              background: isAdmin ? 'rgba(201,77,255,0.15)' : 'rgba(92,225,230,0.15)',
+              color: isAdmin ? (isDark ? '#e0b3ff' : '#7c3aed') : (isDark ? '#5ce1e6' : '#0284c7'),
+              border: isAdmin ? '1px solid rgba(201,77,255,0.3)' : '1px solid rgba(92,225,230,0.3)',
+            }}
+          >
+            <Shield size={13} /> {user.role} Permissions
+          </span>
+        )}
       </div>
 
       {/* Appearance */}
@@ -175,31 +192,43 @@ export const SettingsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Danger zone */}
+      {/* Danger zone (Admin only) */}
       <section
         className="rounded-2xl overflow-hidden"
         style={{
           background: isDark ? '#111116' : '#ffffff',
           border: isDark ? '1px solid #3a1f1f' : '1px solid #fecaca',
+          opacity: isAdmin ? 1 : 0.75,
         }}
       >
         <div
-          className="px-5 py-4 flex items-center gap-2"
+          className="px-5 py-4 flex items-center justify-between"
           style={{ borderBottom: isDark ? '1px solid #3a1f1f' : '1px solid #fee2e2' }}
         >
-          <div className="p-1.5 rounded-lg bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400">
-            <Trash2 size={16} />
+          <div className="flex items-center gap-2">
+            <div className="p-1.5 rounded-lg bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400">
+              <Trash2 size={16} />
+            </div>
+            <h3 className="font-semibold text-red-600 dark:text-red-400" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+              Danger Zone (Admin Only)
+            </h3>
           </div>
-          <h3 className="font-semibold text-red-600 dark:text-red-400" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-            Danger Zone
-          </h3>
+          {!isAdmin && (
+            <span className="text-xs font-medium text-amber-500 flex items-center gap-1">
+              <Lock size={12} /> Restricted to Admin
+            </span>
+          )}
         </div>
         <div className="p-5 flex items-center justify-between">
           <div>
             <p className="text-sm font-medium" style={{ color: isDark ? '#f2f1f5' : '#18141f' }}>Reset Candidate Database</p>
-            <p className="text-xs mt-0.5" style={{ color: isDark ? '#8b899a' : '#6b6875' }}>Reset all records back to seed data</p>
+            <p className="text-xs mt-0.5" style={{ color: isDark ? '#8b899a' : '#6b6875' }}>
+              {isAdmin ? 'Reset all records back to seed data' : 'Administrative privilege required to reset platform database'}
+            </p>
           </div>
-          <Button variant="danger" size="sm" id="clear-data-btn">Reset Data</Button>
+          <Button variant="danger" size="sm" id="clear-data-btn" disabled={!isAdmin}>
+            {isAdmin ? 'Reset Data' : 'Admin Required'}
+          </Button>
         </div>
       </section>
     </div>
