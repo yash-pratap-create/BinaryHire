@@ -93,7 +93,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
           />
           <button
             type="submit"
-            className="absolute right-1.5 text-[10px] font-semibold px-2 py-0.5 rounded transition-all cursor-pointer hover:scale-105"
+            className="absolute right-1.5 text-xs font-semibold px-2 py-0.5 rounded transition-all cursor-pointer hover:scale-105"
             style={{
               background: isDark ? '#1a1820' : '#f3ecfd',
               color: isDark ? '#c94dff' : '#7c3aed',
@@ -101,7 +101,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
             }}
             title="Click or press Enter to search"
           >
-            Search ↵
+            ↵
           </button>
         </form>
 
