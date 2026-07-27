@@ -160,10 +160,9 @@ export const LoginPage: React.FC = () => {
             <Logo size="xl" showText={false} />
           </div>
           <h1
-            className="text-3xl font-semibold mb-3 fade-up"
+            className="text-3xl font-bold mb-3 fade-up animated-brand-text"
             style={{
               fontFamily: "'Space Grotesk', sans-serif",
-              color: isDark ? '#f2f1f5' : '#18141f',
             }}
           >
             BinaryHire SRMIST
