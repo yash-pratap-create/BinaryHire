@@ -25,7 +25,7 @@
       "phone": "+1-555-0101",
       "role": "Frontend Engineer",
       "department": "Engineering",
-      "status": "Screening",
+      "status": "Offer",
       "experience": "4 years",
       "location": "San Francisco, CA",
       "skills": [
@@ -64,7 +64,7 @@
         }
       ],
       "offerApproval": {
-        "stage": "HR Approved",
+        "stage": "Offer Extended",
         "managerApprovedBy": "Yash Pratap Singh",
         "hrApprovedBy": "Ananya Sharma",
         "salaryOffered": "Core Tech Lead (AWS Club)",

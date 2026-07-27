@@ -383,7 +383,13 @@ export const CandidatesPage: React.FC = () => {
                               {getInitials(c.name)}
                             </div>
                             <div>
-                              <p className="text-sm font-medium" style={{ color: isDark ? '#f2f1f5' : '#18141f' }}>{c.name}</p>
+                              <p
+                                onClick={() => setViewCandidate(c)}
+                                className="text-sm font-medium cursor-pointer hover:underline hover:text-[#c94dff] transition-colors"
+                                style={{ color: isDark ? '#f2f1f5' : '#18141f' }}
+                              >
+                                {c.name}
+                              </p>
                               <p className="text-xs" style={{ color: isDark ? '#6f6d7a' : '#8b899a' }}>{c.email}</p>
                             </div>
                           </div>
