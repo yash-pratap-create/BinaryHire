@@ -1,5 +1,6 @@
 import api from './api';
 import type { User } from '../types';
+import { createJwtToken } from '../utils/jwt';
 
 interface LoginCredentials {
   email: string;
@@ -36,10 +37,10 @@ export const authService = {
       throw new Error('Invalid email or password');
     }
 
-    const token = btoa(`${user.id}:${Date.now()}`);
     const { password: _pw, ...safeUser } = user as any;
+    const token = createJwtToken(safeUser as User);
 
-    return { user: safeUser, token };
+    return { user: safeUser as User, token };
   },
 
   async signUp(credentials: SignUpCredentials): Promise<LoginResponse> {
@@ -64,7 +65,7 @@ export const authService = {
     const createResponse = await api.post('/users', newUser);
     const { password: _pw, ...safeUser } = createResponse.data;
 
-    const token = btoa(`${safeUser.id}:${Date.now()}`);
+    const token = createJwtToken(safeUser as User);
     return { user: safeUser as User, token };
   },
 
