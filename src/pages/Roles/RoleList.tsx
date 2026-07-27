@@ -30,13 +30,15 @@ export const RolesPage: React.FC = () => {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
 
+  const canPostRole = user?.role === 'Admin' || user?.role === 'Recruiter';
+
   useEffect(() => {
-    if (searchParams.get('new') === 'true' && isAdmin) {
+    if (searchParams.get('new') === 'true') {
       setEditRole(null);
       setShowForm(true);
       setSearchParams({});
     }
-  }, [searchParams, isAdmin, setSearchParams]);
+  }, [searchParams, setSearchParams]);
 
   const fetchRoles = useCallback(async () => {
     setLoading(true);
@@ -106,7 +108,7 @@ export const RolesPage: React.FC = () => {
             {roles.filter((r) => r.status === 'Open').length} open positions active
           </p>
         </div>
-        {isAdmin && (
+        {canPostRole && (
           <Button
             variant="primary"
             leftIcon={<Plus size={16} />}
