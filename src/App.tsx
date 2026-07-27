@@ -11,6 +11,7 @@ import { PageLoader } from './components/UI/Spinner';
 const DashboardPage = lazy(() => import('./pages/Dashboard').then((m) => ({ default: m.DashboardPage })));
 const CandidatesPage = lazy(() => import('./pages/Candidates/CandidateList').then((m) => ({ default: m.CandidatesPage })));
 const RolesPage = lazy(() => import('./pages/Roles/RoleList').then((m) => ({ default: m.RolesPage })));
+const InterviewListPage = lazy(() => import('./pages/Interviews/InterviewList').then((m) => ({ default: m.InterviewListPage })));
 const AnalyticsPage = lazy(() => import('./pages/Analytics').then((m) => ({ default: m.AnalyticsPage })));
 const ProfilePage = lazy(() => import('./pages/Profile').then((m) => ({ default: m.ProfilePage })));
 const SettingsPage = lazy(() => import('./pages/Settings').then((m) => ({ default: m.SettingsPage })));
@@ -36,6 +37,7 @@ const App: React.FC = () => {
                         <Route path="dashboard" element={<DashboardPage />} />
                         <Route path="candidates" element={<CandidatesPage />} />
                         <Route path="roles" element={<RolesPage />} />
+                        <Route path="interviews" element={<InterviewListPage />} />
                         <Route path="analytics" element={<AnalyticsPage />} />
                         <Route path="profile" element={<ProfilePage />} />
                         <Route path="settings" element={<SettingsPage />} />

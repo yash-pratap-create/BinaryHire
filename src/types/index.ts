@@ -114,3 +114,34 @@ export interface ApiError {
   message: string;
   status: number;
 }
+
+// ─── Interview ────────────────────────────────────────────────────────────────
+export type InterviewType = 'HR Screening' | 'Technical Round' | 'System Design' | 'Management Round';
+export type InterviewStatus = 'Scheduled' | 'Completed' | 'Cancelled';
+
+export interface Interview {
+  id: string;
+  candidateId: string;
+  candidateName: string;
+  candidateRole: string;
+  interviewer: string;
+  type: InterviewType;
+  date: string;
+  time: string;
+  meetingUrl: string;
+  status: InterviewStatus;
+  notes?: string;
+}
+
+export interface InterviewFormData {
+  candidateId: string;
+  candidateName: string;
+  candidateRole: string;
+  interviewer: string;
+  type: InterviewType;
+  date: string;
+  time: string;
+  meetingUrl: string;
+  status: InterviewStatus;
+  notes?: string;
+}

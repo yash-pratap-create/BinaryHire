@@ -357,5 +357,37 @@
       "icon": "user"
     }
   ],
+  "interviews": [
+    {
+      "status": "Scheduled",
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "candidateId": "4",
+      "candidateName": "Riley Johnson",
+      "candidateRole": "UX Designer",
+      "interviewer": "Ananya Sharma",
+      "type": "Technical Round",
+      "date": "2026-07-30",
+      "time": "02:00 PM",
+      "meetingUrl": "https://meet.google.com/xyz-uvwx-rst",
+      "status": "Scheduled",
+      "notes": "Figma design portfolio review and interactive prototype demo."
+    },
+    {
+      "id": "3",
+      "candidateId": "2",
+      "candidateName": "Taylor Kim",
+      "candidateRole": "Backend Engineer",
+      "interviewer": "Ananya Sharma",
+      "type": "HR Screening",
+      "date": "2026-07-31",
+      "time": "04:30 PM",
+      "meetingUrl": "https://meet.google.com/pqr-stuv-wxy",
+      "status": "Scheduled",
+      "notes": "Culture fit evaluation, notice period, and salary expectations."
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

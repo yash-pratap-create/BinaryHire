@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import {
   Search, Plus, Filter, Trash2, Edit2, Eye,
-  Download, ChevronDown,
+  Download, ChevronDown, Calendar,
 } from 'lucide-react';
 import { clsx } from 'clsx';
 import { candidateService } from '../../services/candidateService';
@@ -17,6 +17,7 @@ import { Pagination } from '../../components/UI/Pagination';
 import { PageLoader } from '../../components/UI/Spinner';
 import { CandidateForm } from './CandidateForm';
 import { CandidateDetail } from './CandidateDetail';
+import { ScheduleInterviewModal } from '../../components/Interviews/ScheduleInterviewModal';
 
 const STATUS_OPTIONS: CandidateStatus[] = ['Applied', 'Screening', 'Interview', 'Offer', 'Hired', 'Rejected'];
 
@@ -84,6 +85,7 @@ export const CandidatesPage: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [editCandidate, setEditCandidate] = useState<Candidate | null>(null);
   const [viewCandidate, setViewCandidate] = useState<Candidate | null>(null);
+  const [scheduleCandidate, setScheduleCandidate] = useState<Candidate | null>(null);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [showFilters, setShowFilters] = useState(false);
 
@@ -350,6 +352,13 @@ export const CandidatesPage: React.FC = () => {
                               <Edit2 size={15} />
                             </button>
                             <button
+                              onClick={() => setScheduleCandidate(c)}
+                              className="p-1.5 rounded-lg text-[#8b899a] hover:text-[#e0b3ff] hover:bg-[#1a1820] transition-colors cursor-pointer"
+                              title="Schedule interview"
+                            >
+                              <Calendar size={15} />
+                            </button>
+                            <button
                               onClick={() => downloadCandidateResume(c)}
                               className="p-1.5 rounded-lg text-[#8b899a] hover:text-[#5fe0a8] hover:bg-[#1a1820] transition-colors cursor-pointer"
                               title="Download resume"
@@ -406,6 +415,22 @@ export const CandidatesPage: React.FC = () => {
             candidate={viewCandidate}
             onEdit={() => { setViewCandidate(null); openEdit(viewCandidate); }}
             onRefresh={fetchCandidates}
+          />
+        )}
+      </Modal>
+
+      {/* Schedule Interview Modal */}
+      <Modal
+        isOpen={!!scheduleCandidate}
+        onClose={() => setScheduleCandidate(null)}
+        title={`Schedule Interview for ${scheduleCandidate?.name}`}
+        size="lg"
+      >
+        {scheduleCandidate && (
+          <ScheduleInterviewModal
+            candidate={scheduleCandidate}
+            onSaved={() => { setScheduleCandidate(null); fetchCandidates(); }}
+            onCancel={() => setScheduleCandidate(null)}
           />
         )}
       </Modal>

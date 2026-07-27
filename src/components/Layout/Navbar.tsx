@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { clsx } from 'clsx';
 import {
-  LayoutGrid, Users, Briefcase, BarChart3, Settings,
+  LayoutGrid, Users, Briefcase, BarChart3, Settings, Calendar,
   Sun, Moon, Bell, Search, ChevronDown, Plus, LogOut, User, Menu, X
 } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
@@ -20,6 +20,7 @@ const NAV_ITEMS: NavItem[] = [
   { to: '/dashboard', icon: LayoutGrid, label: 'Dashboard' },
   { to: '/candidates', icon: Users, label: 'Candidates' },
   { to: '/roles', icon: Briefcase, label: 'Roles' },
+  { to: '/interviews', icon: Calendar, label: 'Interviews' },
   { to: '/analytics', icon: BarChart3, label: 'Analytics' },
   { to: '/settings', icon: Settings, label: 'Settings' },
 ];

@@ -137,10 +137,19 @@ export const CandidateDetail: React.FC<CandidateDetailProps> = ({ candidate, onE
 
       {/* Actions */}
       <div className="flex gap-3 pt-2">
+      {/* Action bar */}
+      <div className="flex flex-wrap gap-3 pt-2">
         <Button variant="outline" leftIcon={<Download size={15} />} onClick={() => downloadCandidateResume(candidate)} className="flex-1">
           Download Resume
         </Button>
-        <Button variant="primary" leftIcon={<Edit2 size={15} />} onClick={onEdit} className="flex-1" id="edit-from-detail">
+        <a
+          href={`/interviews?schedule=true&candidateId=${candidate.id}`}
+          className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold shadow-md transition-all hover:scale-105 cursor-pointer flex-1"
+          style={{ background: 'linear-gradient(135deg,#c94dff,#7c3aed)', color: '#0c0b10' }}
+        >
+          <Calendar size={15} /> Schedule Interview
+        </a>
+        <Button variant="outline" leftIcon={<Edit2 size={15} />} onClick={onEdit} className="flex-1" id="edit-from-detail">
           Edit Profile
         </Button>
       </div>
