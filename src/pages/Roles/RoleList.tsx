@@ -106,7 +106,7 @@ export const RolesPage: React.FC = () => {
             {roles.filter((r) => r.status === 'Open').length} open positions active
           </p>
         </div>
-        {isAdmin ? (
+        {isAdmin && (
           <Button
             variant="primary"
             leftIcon={<Plus size={16} />}
@@ -115,10 +115,6 @@ export const RolesPage: React.FC = () => {
           >
             Post New Role
           </Button>
-        ) : (
-          <span className="text-xs px-3.5 py-2 rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-500 font-medium">
-            🔒 Role Creation Restricted to Admin
-          </span>
         )}
       </div>
 
@@ -276,35 +272,29 @@ export const RolesPage: React.FC = () => {
                       {role.salary}
                     </p>
 
-                    <div className="flex gap-2 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
-                      {isAdmin ? (
-                        <>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            leftIcon={<Edit2 size={13} />}
-                            className="flex-1 text-xs"
-                            onClick={() => { setEditRole(role); setShowForm(true); }}
-                            title="Edit role (Admin only)"
-                          >
-                            Edit
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => setDeleteId(role.id)}
-                            className="text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 px-2"
-                            title="Delete role (Admin only)"
-                          >
-                            <Trash2 size={14} />
-                          </Button>
-                        </>
-                      ) : (
-                        <span className="text-[11px] py-1 px-2.5 rounded-lg bg-gray-500/10 text-gray-400 font-medium">
-                          🔒 Read-Only Position
-                        </span>
-                      )}
-                    </div>
+                    {isAdmin && (
+                      <div className="flex gap-2 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          leftIcon={<Edit2 size={13} />}
+                          className="flex-1 text-xs"
+                          onClick={() => { setEditRole(role); setShowForm(true); }}
+                          title="Edit role"
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setDeleteId(role.id)}
+                          className="text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 px-2"
+                          title="Delete role"
+                        >
+                          <Trash2 size={14} />
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 </div>
               );

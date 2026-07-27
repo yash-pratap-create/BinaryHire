@@ -99,25 +99,21 @@ export const Navbar: React.FC = () => {
 
       {/* Right: Quick Action, Search, Theme & Profile */}
       <div className="flex items-center gap-2.5">
-        {/* Quick Role Action Button */}
-        <button
-          type="button"
-          onClick={() => {
-            if (isAdmin) {
-              navigate('/roles?new=true');
-            } else {
-              navigate('/roles');
-            }
-          }}
-          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer hover:scale-105"
-          style={{
-            background: 'linear-gradient(135deg,#c94dff,#7c3aed)',
-            color: '#0c0b10',
-            boxShadow: '0 2px 10px rgba(201,77,255,0.3)',
-          }}
-        >
-          {isAdmin ? <><Plus size={14} /> Post Role</> : <>View Roles</>}
-        </button>
+        {/* Quick Role Action Button (Admin Only) */}
+        {isAdmin && (
+          <button
+            type="button"
+            onClick={() => navigate('/roles?new=true')}
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer hover:scale-105"
+            style={{
+              background: 'linear-gradient(135deg,#c94dff,#7c3aed)',
+              color: '#0c0b10',
+              boxShadow: '0 2px 10px rgba(201,77,255,0.3)',
+            }}
+          >
+            <Plus size={14} /> Post Role
+          </button>
+        )}
 
         {/* Global Search */}
         <form

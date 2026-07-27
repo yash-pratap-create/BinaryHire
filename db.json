@@ -99,7 +99,7 @@
       "phone": "+1-555-0103",
       "role": "Product Manager",
       "department": "Product",
-      "status": "Hired",
+      "status": "Screening",
       "experience": "8 years",
       "location": "Austin, TX",
       "skills": [
@@ -120,7 +120,7 @@
       "phone": "+1-555-0104",
       "role": "Data Scientist",
       "department": "Data",
-      "status": "Hired",
+      "status": "Screening",
       "experience": "5 years",
       "location": "Seattle, WA",
       "skills": [
@@ -141,7 +141,7 @@
       "phone": "+1-555-0105",
       "role": "UX Designer",
       "department": "Design",
-      "status": "Applied",
+      "status": "Rejected",
       "experience": "3 years",
       "location": "Chicago, IL",
       "skills": [

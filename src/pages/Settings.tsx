@@ -193,44 +193,40 @@ export const SettingsPage: React.FC = () => {
       </section>
 
       {/* Danger zone (Admin only) */}
-      <section
-        className="rounded-2xl overflow-hidden"
-        style={{
-          background: isDark ? '#111116' : '#ffffff',
-          border: isDark ? '1px solid #3a1f1f' : '1px solid #fecaca',
-          opacity: isAdmin ? 1 : 0.75,
-        }}
-      >
-        <div
-          className="px-5 py-4 flex items-center justify-between"
-          style={{ borderBottom: isDark ? '1px solid #3a1f1f' : '1px solid #fee2e2' }}
+      {isAdmin && (
+        <section
+          className="rounded-2xl overflow-hidden"
+          style={{
+            background: isDark ? '#111116' : '#ffffff',
+            border: isDark ? '1px solid #3a1f1f' : '1px solid #fecaca',
+          }}
         >
-          <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-lg bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400">
-              <Trash2 size={16} />
+          <div
+            className="px-5 py-4 flex items-center justify-between"
+            style={{ borderBottom: isDark ? '1px solid #3a1f1f' : '1px solid #fee2e2' }}
+          >
+            <div className="flex items-center gap-2">
+              <div className="p-1.5 rounded-lg bg-red-100 dark:bg-red-950/40 text-red-600 dark:text-red-400">
+                <Trash2 size={16} />
+              </div>
+              <h3 className="font-semibold text-red-600 dark:text-red-400" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                Danger Zone (Admin Only)
+              </h3>
             </div>
-            <h3 className="font-semibold text-red-600 dark:text-red-400" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-              Danger Zone (Admin Only)
-            </h3>
           </div>
-          {!isAdmin && (
-            <span className="text-xs font-medium text-amber-500 flex items-center gap-1">
-              <Lock size={12} /> Restricted to Admin
-            </span>
-          )}
-        </div>
-        <div className="p-5 flex items-center justify-between">
-          <div>
-            <p className="text-sm font-medium" style={{ color: isDark ? '#f2f1f5' : '#18141f' }}>Reset Candidate Database</p>
-            <p className="text-xs mt-0.5" style={{ color: isDark ? '#8b899a' : '#6b6875' }}>
-              {isAdmin ? 'Reset all records back to seed data' : 'Administrative privilege required to reset platform database'}
-            </p>
+          <div className="p-5 flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium" style={{ color: isDark ? '#f2f1f5' : '#18141f' }}>Reset Candidate Database</p>
+              <p className="text-xs mt-0.5" style={{ color: isDark ? '#8b899a' : '#6b6875' }}>
+                Reset all records back to initial seed data
+              </p>
+            </div>
+            <Button variant="danger" size="sm" id="clear-data-btn">
+              Reset Data
+            </Button>
           </div>
-          <Button variant="danger" size="sm" id="clear-data-btn" disabled={!isAdmin}>
-            {isAdmin ? 'Reset Data' : 'Admin Required'}
-          </Button>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 };
