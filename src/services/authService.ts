@@ -6,6 +6,13 @@ interface LoginCredentials {
   password: string;
 }
 
+export interface SignUpCredentials {
+  name: string;
+  email: string;
+  password: string;
+  role?: 'Admin' | 'Recruiter' | 'Manager';
+}
+
 interface LoginResponse {
   user: User;
   token: string;
@@ -33,6 +40,32 @@ export const authService = {
     const { password: _pw, ...safeUser } = user as any;
 
     return { user: safeUser, token };
+  },
+
+  async signUp(credentials: SignUpCredentials): Promise<LoginResponse> {
+    // Check if email already exists
+    const checkResponse = await api.get<User[]>('/users', {
+      params: { email: credentials.email },
+    });
+
+    if (checkResponse.data && checkResponse.data.length > 0) {
+      throw new Error('An account with this email already exists');
+    }
+
+    const newUser = {
+      id: `usr_${Date.now()}`,
+      name: credentials.name,
+      email: credentials.email,
+      password: credentials.password,
+      role: credentials.role || 'Recruiter',
+      avatar: `https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80`,
+    };
+
+    const createResponse = await api.post('/users', newUser);
+    const { password: _pw, ...safeUser } = createResponse.data;
+
+    const token = btoa(`${safeUser.id}:${Date.now()}`);
+    return { user: safeUser as User, token };
   },
 
   async getMe(): Promise<User | null> {

@@ -12,6 +12,7 @@ type AuthAction =
 
 interface AuthContextValue extends AuthState {
   login: (email: string, password: string) => Promise<void>;
+  signUp: (name: string, email: string, password: string, role?: 'Admin' | 'Recruiter' | 'Manager') => Promise<void>;
   logout: () => void;
 }
 
@@ -81,13 +82,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const signUp = async (name: string, email: string, password: string, role?: 'Admin' | 'Recruiter' | 'Manager') => {
+    dispatch({ type: 'LOGIN_START' });
+    try {
+      const { user, token } = await authService.signUp({ name, email, password, role });
+      localStorage.setItem('bh_token', token);
+      localStorage.setItem('bh_user', JSON.stringify(user));
+      dispatch({ type: 'LOGIN_SUCCESS', payload: { user, token } });
+    } catch (error) {
+      dispatch({ type: 'LOGIN_ERROR' });
+      throw error;
+    }
+  };
+
   const logout = () => {
     authService.logout();
     dispatch({ type: 'LOGOUT' });
   };
 
   return (
-    <AuthContext.Provider value={{ ...state, login, logout }}>
+    <AuthContext.Provider value={{ ...state, login, signUp, logout }}>
       {children}
     </AuthContext.Provider>
   );

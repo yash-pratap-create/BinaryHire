@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { Eye, EyeOff, Mail, Lock, Zap, AlertCircle, Sun, Moon } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, AlertCircle, Sun, Moon, User as UserIcon, Shield } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { Logo } from '../components/UI/Logo';
 import { BinaryWatermark } from '../components/UI/BinaryWatermark';
 
-interface LoginForm {
+interface AuthForm {
+  name?: string;
   email: string;
   password: string;
+  role?: 'Admin' | 'Recruiter' | 'Manager';
 }
 
 const DEMO_CREDENTIALS = [
@@ -18,8 +20,9 @@ const DEMO_CREDENTIALS = [
 ];
 
 export const LoginPage: React.FC = () => {
-  const { login, isAuthenticated, isLoading: authLoading } = useAuth();
+  const { login, signUp, isAuthenticated, isLoading: authLoading } = useAuth();
   const { isDark, toggleTheme } = useTheme();
+  const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
 
@@ -27,22 +30,41 @@ export const LoginPage: React.FC = () => {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors, isSubmitting },
-  } = useForm<LoginForm>({
-    defaultValues: { email: '', password: '' },
+  } = useForm<AuthForm>({
+    defaultValues: { name: '', email: '', password: '', role: 'Recruiter' },
   });
 
   if (isAuthenticated) return <Navigate to="/dashboard" replace />;
 
+  const toggleAuthMode = () => {
+    setIsSignUp((v) => !v);
+    setError('');
+    reset();
+  };
+
   const fillDemo = (email: string, pass: string) => {
+    setIsSignUp(false);
     setValue('email', email);
     setValue('password', pass);
   };
 
-  const onSubmit = async (data: LoginForm) => {
+  const onSubmit = async (data: AuthForm) => {
     setError('');
-    const ok = await login(data.email, data.password);
-    if (!ok) setError('Invalid email or password. Try a demo account below.');
+    try {
+      if (isSignUp) {
+        if (!data.name || data.name.trim() === '') {
+          setError('Full Name is required for registration.');
+          return;
+        }
+        await signUp(data.name.trim(), data.email.trim(), data.password, data.role || 'Recruiter');
+      } else {
+        await login(data.email.trim(), data.password);
+      }
+    } catch (err: any) {
+      setError(err?.message || (isSignUp ? 'Registration failed. Please try again.' : 'Invalid email or password.'));
+    }
   };
 
   return (
@@ -195,11 +217,45 @@ export const LoginPage: React.FC = () => {
       </div>
 
       {/* Right auth panel */}
-      <div className="flex-1 flex items-center justify-center px-6 py-12 relative">
+      <div className="flex-1 flex items-center justify-center px-6 py-12 relative overflow-y-auto">
         <div className="w-full max-w-[380px]">
           {/* Mobile Logo Header */}
           <div className="mb-6 md:hidden fade-up">
             <Logo size="md" />
+          </div>
+
+          {/* Mode Switcher Tabs */}
+          <div
+            className="flex p-1 rounded-2xl mb-6 fade-up"
+            style={{
+              background: isDark ? '#111116' : '#eae7f2',
+              border: isDark ? '1px solid #24212c' : '1px solid #e7e4ef',
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => { setIsSignUp(false); setError(''); reset(); }}
+              className="flex-1 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all duration-200"
+              style={{
+                background: !isSignUp ? (isDark ? '#1f1c29' : '#ffffff') : 'transparent',
+                color: !isSignUp ? (isDark ? '#f2f1f5' : '#18141f') : (isDark ? '#8b899a' : '#6b6875'),
+                boxShadow: !isSignUp ? '0 2px 8px rgba(0,0,0,0.12)' : 'none',
+              }}
+            >
+              Sign In
+            </button>
+            <button
+              type="button"
+              onClick={() => { setIsSignUp(true); setError(''); reset(); }}
+              className="flex-1 py-2 rounded-xl text-xs font-semibold cursor-pointer transition-all duration-200"
+              style={{
+                background: isSignUp ? (isDark ? '#1f1c29' : '#ffffff') : 'transparent',
+                color: isSignUp ? (isDark ? '#f2f1f5' : '#18141f') : (isDark ? '#8b899a' : '#6b6875'),
+                boxShadow: isSignUp ? '0 2px 8px rgba(0,0,0,0.12)' : 'none',
+              }}
+            >
+              Sign Up
+            </button>
           </div>
 
           <div className="mb-6 fade-up">
@@ -210,34 +266,36 @@ export const LoginPage: React.FC = () => {
                 color: isDark ? '#f2f1f5' : '#18141f',
               }}
             >
-              Welcome back, recruiter.
+              {isSignUp ? 'Create an account' : 'Welcome back, recruiter.'}
             </h2>
             <p className="text-sm" style={{ color: isDark ? '#8b899a' : '#6b6875' }}>
-              Sign in to pick up where you left off.
+              {isSignUp ? 'Sign up to get started with BinaryHire' : 'Sign in to pick up where you left off.'}
             </p>
           </div>
 
-          {/* Quick Demo Credentials Buttons */}
-          <div className="mb-5 fade-up" style={{ animationDelay: '0.04s' }}>
-            <p className="text-xs mb-2 font-medium" style={{ color: isDark ? '#6f6d7a' : '#6b6875' }}>Quick Demo Fill:</p>
-            <div className="flex gap-2">
-              {DEMO_CREDENTIALS.map((cred) => (
-                <button
-                  key={cred.label}
-                  type="button"
-                  onClick={() => fillDemo(cred.email, cred.password)}
-                  className="social-btn flex-1 py-2 px-3 rounded-xl text-xs font-medium border cursor-pointer"
-                  style={{
-                    background: isDark ? '#111116' : '#ffffff',
-                    borderColor: isDark ? '#24212c' : '#e7e4ef',
-                    color: isDark ? '#c94dff' : '#9333ea',
-                  }}
-                >
-                  ⚡ Demo: {cred.label}
-                </button>
-              ))}
+          {/* Quick Demo Credentials Buttons (Sign in mode only) */}
+          {!isSignUp && (
+            <div className="mb-5 fade-up" style={{ animationDelay: '0.04s' }}>
+              <p className="text-xs mb-2 font-medium" style={{ color: isDark ? '#6f6d7a' : '#6b6875' }}>Quick Demo Fill:</p>
+              <div className="flex gap-2">
+                {DEMO_CREDENTIALS.map((cred) => (
+                  <button
+                    key={cred.label}
+                    type="button"
+                    onClick={() => fillDemo(cred.email, cred.password)}
+                    className="social-btn flex-1 py-2 px-3 rounded-xl text-xs font-medium border cursor-pointer"
+                    style={{
+                      background: isDark ? '#111116' : '#ffffff',
+                      borderColor: isDark ? '#24212c' : '#e7e4ef',
+                      color: isDark ? '#c94dff' : '#9333ea',
+                    }}
+                  >
+                    ⚡ Demo: {cred.label}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="flex flex-col gap-3 mb-6 fade-up" style={{ animationDelay: '0.06s' }}>
             <button
@@ -275,7 +333,9 @@ export const LoginPage: React.FC = () => {
 
           <div className="flex items-center gap-3 mb-6 fade-up" style={{ animationDelay: '0.08s' }}>
             <div className="flex-1 h-px" style={{ background: isDark ? '#1f1d27' : '#e7e4ef' }} />
-            <span className="text-xs" style={{ color: isDark ? '#6f6d7a' : '#6b6875' }}>or sign in with email</span>
+            <span className="text-xs" style={{ color: isDark ? '#6f6d7a' : '#6b6875' }}>
+              {isSignUp ? 'or sign up with email' : 'or sign in with email'}
+            </span>
             <div className="flex-1 h-px" style={{ background: isDark ? '#1f1d27' : '#e7e4ef' }} />
           </div>
 
@@ -290,6 +350,36 @@ export const LoginPage: React.FC = () => {
           )}
 
           <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4" id="login-form">
+            {/* Full Name field (Sign Up only) */}
+            {isSignUp && (
+              <div className="fade-up" style={{ animationDelay: '0.09s' }}>
+                <label htmlFor="signup-name" className="text-xs font-medium mb-1.5 block" style={{ color: isDark ? '#a8a6b3' : '#6b6875' }}>
+                  Full Name
+                </label>
+                <div
+                  className="field flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl"
+                  style={{
+                    background: isDark ? '#111116' : '#ffffff',
+                    border: isDark ? '1px solid #24212c' : '1px solid #e7e4ef',
+                  }}
+                >
+                  <UserIcon size={15} style={{ color: isDark ? '#6f6d7a' : '#6b6875' }} />
+                  <input
+                    id="signup-name"
+                    type="text"
+                    placeholder="e.g. Alex Morgan"
+                    {...register('name', {
+                      required: isSignUp ? 'Full Name is required' : false,
+                    })}
+                    className="bg-transparent outline-none text-sm w-full"
+                    style={{ color: isDark ? '#f2f1f5' : '#18141f' }}
+                  />
+                </div>
+                {errors.name && <p className="text-xs text-red-400 mt-1">{errors.name.message}</p>}
+              </div>
+            )}
+
+            {/* Email field */}
             <div className="fade-up" style={{ animationDelay: '0.1s' }}>
               <label htmlFor="login-email" className="text-xs font-medium mb-1.5 block" style={{ color: isDark ? '#a8a6b3' : '#6b6875' }}>
                 Email address
@@ -305,10 +395,10 @@ export const LoginPage: React.FC = () => {
                 <input
                   id="login-email"
                   type="email"
-                  placeholder="admin@binaryhire.com"
+                  placeholder="name@srmist.edu.in"
                   {...register('email', {
                     required: 'Email is required',
-                    pattern: { value: /^\S+@\S+\.\S+$/, message: 'Invalid email' },
+                    pattern: { value: /^\S+@\S+\.\S+$/, message: 'Invalid email address' },
                   })}
                   className="bg-transparent outline-none text-sm w-full"
                   style={{ color: isDark ? '#f2f1f5' : '#18141f' }}
@@ -317,14 +407,45 @@ export const LoginPage: React.FC = () => {
               {errors.email && <p className="text-xs text-red-400 mt-1">{errors.email.message}</p>}
             </div>
 
+            {/* Role dropdown (Sign Up only) */}
+            {isSignUp && (
+              <div className="fade-up" style={{ animationDelay: '0.11s' }}>
+                <label htmlFor="signup-role" className="text-xs font-medium mb-1.5 block" style={{ color: isDark ? '#a8a6b3' : '#6b6875' }}>
+                  Workspace Role
+                </label>
+                <div
+                  className="field flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl"
+                  style={{
+                    background: isDark ? '#111116' : '#ffffff',
+                    border: isDark ? '1px solid #24212c' : '1px solid #e7e4ef',
+                  }}
+                >
+                  <Shield size={15} style={{ color: isDark ? '#6f6d7a' : '#6b6875' }} />
+                  <select
+                    id="signup-role"
+                    {...register('role')}
+                    className="bg-transparent outline-none text-sm w-full cursor-pointer"
+                    style={{ color: isDark ? '#f2f1f5' : '#18141f' }}
+                  >
+                    <option value="Recruiter" style={{ background: isDark ? '#111116' : '#ffffff' }}>Recruiter</option>
+                    <option value="Admin" style={{ background: isDark ? '#111116' : '#ffffff' }}>Admin</option>
+                    <option value="Manager" style={{ background: isDark ? '#111116' : '#ffffff' }}>Manager</option>
+                  </select>
+                </div>
+              </div>
+            )}
+
+            {/* Password field */}
             <div className="fade-up" style={{ animationDelay: '0.13s' }}>
               <div className="flex items-center justify-between mb-1.5">
                 <label htmlFor="login-password" className="text-xs font-medium" style={{ color: isDark ? '#a8a6b3' : '#6b6875' }}>
                   Password
                 </label>
-                <span className="text-xs cursor-pointer" style={{ color: isDark ? '#c94dff' : '#9333ea' }}>
-                  Forgot password?
-                </span>
+                {!isSignUp && (
+                  <span className="text-xs cursor-pointer" style={{ color: isDark ? '#c94dff' : '#9333ea' }}>
+                    Forgot password?
+                  </span>
+                )}
               </div>
               <div
                 className="field flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl"
@@ -358,23 +479,38 @@ export const LoginPage: React.FC = () => {
 
             <label className="flex items-center gap-2 text-xs fade-up cursor-pointer" style={{ color: isDark ? '#8b899a' : '#6b6875', animationDelay: '0.16s' }}>
               <input type="checkbox" className="accent-[#c94dff] rounded" defaultChecked />
-              Keep me signed in on this device
+              {isSignUp ? 'I agree to the Terms of Service & Privacy Policy' : 'Keep me signed in on this device'}
             </label>
 
             <button
               type="submit"
               id="login-submit"
               disabled={isSubmitting || authLoading}
-              className="btn-primary w-full py-2.5 rounded-xl text-sm font-medium flex items-center justify-center gap-1.5 fade-up disabled:opacity-50 cursor-pointer"
+              className="btn-primary w-full py-2.5 rounded-xl text-sm font-medium flex items-center justify-center gap-1.5 fade-up disabled:opacity-50 cursor-pointer mt-1"
               style={{
                 background: 'linear-gradient(90deg,#c94dff,#7c3aed,#c94dff)',
                 color: '#0c0b10',
                 animationDelay: '0.19s',
               }}
             >
-              Sign in to BinaryHire
+              {isSignUp ? 'Create BinaryHire Account' : 'Sign in to BinaryHire'}
             </button>
           </form>
+
+          {/* Toggle link */}
+          <div className="mt-6 text-center text-xs fade-up" style={{ animationDelay: '0.22s' }}>
+            <span style={{ color: isDark ? '#8b899a' : '#6b6875' }}>
+              {isSignUp ? 'Already have an account? ' : "Don't have an account? "}
+            </span>
+            <button
+              type="button"
+              onClick={toggleAuthMode}
+              className="font-semibold cursor-pointer hover:underline"
+              style={{ color: isDark ? '#c94dff' : '#9333ea' }}
+            >
+              {isSignUp ? 'Sign in' : 'Sign up'}
+            </button>
+          </div>
         </div>
       </div>
     </div>
