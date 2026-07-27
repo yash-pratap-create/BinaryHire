@@ -185,49 +185,49 @@ export const DashboardPage: React.FC = () => {
 
   return (
     <div className="w-full relative space-y-6">
-      {/* Top Welcome Hero Banner with Image & Written Content */}
+      {/* Top Welcome Hero Banner with High-Res Tech Team Images */}
       <div
-        className="rounded-3xl p-6 md:p-8 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-300"
+        className="rounded-3xl p-6 md:p-8 relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8 transition-all duration-300"
         style={{
           background: isDark
-            ? 'linear-gradient(135deg, #141020 0%, #0d0a15 60%, #150e24 100%)'
-            : 'linear-gradient(135deg, #ffffff 0%, #f6f0ff 60%, #eee4fc 100%)',
-          border: isDark ? '1px solid #2a223a' : '1px solid #e2d4f8',
+            ? 'linear-gradient(135deg, #130f1e 0%, #0c0914 60%, #160e24 100%)'
+            : 'linear-gradient(135deg, #ffffff 0%, #f7f2ff 60%, #f0e6ff 100%)',
+          border: isDark ? '1px solid #282038' : '1px solid #e4d5fb',
           boxShadow: isDark ? '0 8px 32px rgba(201,77,255,0.15)' : '0 6px 24px rgba(147,51,234,0.08)',
         }}
       >
-        {/* Background Ambient Glow Effects */}
+        {/* Background Ambient Glow */}
         <div
-          className="absolute -top-24 -left-24 w-72 h-72 rounded-full blur-3xl opacity-30 pointer-events-none"
+          className="absolute -top-24 -left-24 w-80 h-80 rounded-full blur-3xl opacity-30 pointer-events-none"
           style={{ background: '#c94dff' }}
         />
         <div
-          className="absolute -bottom-24 -right-24 w-72 h-72 rounded-full blur-3xl opacity-20 pointer-events-none"
+          className="absolute -bottom-24 -right-24 w-80 h-80 rounded-full blur-3xl opacity-20 pointer-events-none"
           style={{ background: '#5ce1e6' }}
         />
 
-        {/* Written Content Column */}
+        {/* Content Column */}
         <div className="relative z-10 flex-1 space-y-4">
           <div className="flex flex-wrap items-center gap-2">
             <span
-              className="px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5"
+              className="px-3.5 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5"
               style={{
                 background: 'rgba(201,77,255,0.15)',
                 color: isDark ? '#e0b3ff' : '#7c3aed',
                 border: '1px solid rgba(201,77,255,0.3)',
               }}
             >
-              <Sparkles size={13} /> SRMIST Talent Recruitment Hub
+              <Sparkles size={13} /> SRMIST Talent Acquisition Hub
             </span>
             <span
-              className="px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5"
+              className="px-3.5 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5"
               style={{
                 background: 'rgba(92,225,230,0.15)',
                 color: isDark ? '#5ce1e6' : '#0284c7',
                 border: '1px solid rgba(92,225,230,0.3)',
               }}
             >
-              <Zap size={13} /> Real-Time Talent Pipeline
+              <Zap size={13} /> Real-Time Analytics
             </span>
           </div>
 
@@ -236,20 +236,20 @@ export const DashboardPage: React.FC = () => {
               className="text-2xl sm:text-3xl font-bold tracking-tight leading-tight"
               style={{ fontFamily: "'Space Grotesk', sans-serif", color: isDark ? '#f2f1f5' : '#18141f' }}
             >
-              Welcome back, {user?.name || 'Recruiter'} 👋
+              Good evening, {user?.name.split(' ')[0] || 'Recruiter'} 👋
             </h1>
-            <p className="text-xs sm:text-sm mt-2 max-w-xl leading-relaxed" style={{ color: isDark ? '#a8a5b8' : '#595566' }}>
-              Streamline candidate sourcing, evaluate AI match scores, and track active campus placement pipelines across engineering & design teams.
+            <p className="text-xs sm:text-sm mt-1.5 max-w-xl leading-relaxed" style={{ color: isDark ? '#a8a5b8' : '#595566' }}>
+              Track candidate pipelines, evaluate AI match scores, and streamline campus recruitment drives for SRMIST.
             </p>
           </div>
 
           {/* Quick Metrics Badges */}
           <div className="flex flex-wrap items-center gap-4 pt-1">
             <div className="flex items-center gap-1.5 text-xs font-medium" style={{ color: isDark ? '#5fe0a8' : '#0f9d6c' }}>
-              <CheckCircle2 size={14} /> 96.4% Candidate Match Accuracy
+              <CheckCircle2 size={14} /> 96.4% AI Match Accuracy
             </div>
             <div className="flex items-center gap-1.5 text-xs font-medium" style={{ color: isDark ? '#e0b3ff' : '#7c3aed' }}>
-              <Award size={14} /> Verified SRMIST Campus Profiles
+              <Award size={14} /> Tier-1 Engineering Pool Active
             </div>
           </div>
 
@@ -257,45 +257,61 @@ export const DashboardPage: React.FC = () => {
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <Link
               to="/candidates"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold shadow-md transition-all hover:scale-105 cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold shadow-md transition-all hover:scale-105 cursor-pointer"
               style={{ background: 'linear-gradient(135deg,#c94dff,#7c3aed)', color: '#0c0b10' }}
             >
               <Users size={15} /> Explore Candidates
             </Link>
             <Link
               to="/roles"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold border transition-all hover:scale-105 cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold border transition-all hover:scale-105 cursor-pointer"
               style={{
                 background: isDark ? '#1a1820' : '#ffffff',
                 borderColor: isDark ? '#2a2733' : '#e9d5ff',
                 color: isDark ? '#f2f1f5' : '#18141f',
               }}
             >
-              <Plus size={15} /> Post Job Role
+              <Briefcase size={15} /> View Job Roles
             </Link>
           </div>
         </div>
 
-        {/* Real Unsplash Tech Team Image Banner */}
-        <div
-          className="relative z-10 shrink-0 w-full md:w-80 lg:w-96 rounded-2xl overflow-hidden border p-1 shadow-2xl group transition-all duration-300 hover:scale-[1.02]"
-          style={{
-            background: isDark ? '#0c0b10' : '#ffffff',
-            borderColor: isDark ? '#2a2733' : '#e7e4ef',
-          }}
-        >
-          <img
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80"
-            alt="SRMIST Recruitment Team & Tech Talent"
-            className="w-full h-48 sm:h-52 object-cover rounded-xl filter drop-shadow-md group-hover:scale-105 transition-transform duration-500"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex items-end p-3.5 pointer-events-none">
-            <div className="flex items-center justify-between w-full text-white text-xs">
-              <span className="font-semibold tracking-wide flex items-center gap-1.5">
-                <Sparkles size={13} className="text-[#c94dff]" /> SRMIST Talent Portal
+        {/* High-Res Image Gallery Grid */}
+        <div className="relative z-10 shrink-0 flex gap-3 w-full lg:w-auto overflow-x-auto pb-1 lg:pb-0">
+          <div
+            className="w-44 sm:w-52 h-44 sm:h-48 rounded-2xl overflow-hidden border p-1 shadow-2xl relative group shrink-0 transition-all duration-300 hover:scale-[1.03]"
+            style={{
+              background: isDark ? '#111116' : '#ffffff',
+              borderColor: isDark ? '#2a2733' : '#e7e4ef',
+            }}
+          >
+            <img
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80"
+              alt="Campus Tech Recruitment Team"
+              className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-2.5 pointer-events-none">
+              <span className="text-[11px] font-semibold text-white tracking-wide">
+                Campus Drive 2026
               </span>
-              <span className="px-2 py-0.5 rounded bg-[#c94dff]/30 text-[#e0b3ff] text-[10px] font-mono border border-[#c94dff]/40">
-                ACTIVE PIPELINE
+            </div>
+          </div>
+
+          <div
+            className="w-44 sm:w-52 h-44 sm:h-48 rounded-2xl overflow-hidden border p-1 shadow-2xl relative group shrink-0 transition-all duration-300 hover:scale-[1.03]"
+            style={{
+              background: isDark ? '#111116' : '#ffffff',
+              borderColor: isDark ? '#2a2733' : '#e7e4ef',
+            }}
+          >
+            <img
+              src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80"
+              alt="Engineering Hiring Assessment"
+              className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-2.5 pointer-events-none">
+              <span className="text-[11px] font-semibold text-white tracking-wide">
+                Engineering Interviews
               </span>
             </div>
           </div>
