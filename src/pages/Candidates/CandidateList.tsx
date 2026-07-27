@@ -81,6 +81,7 @@ export const CandidatesPage: React.FC = () => {
   const { user } = useAuth();
   const isAdmin = user?.role === 'Admin';
   const [candidates, setCandidates] = useState<Candidate[]>([]);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState<string>('All');
   const [showForm, setShowForm] = useState(false);
